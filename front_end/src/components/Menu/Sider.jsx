@@ -1,11 +1,11 @@
 import React from 'react';
-import cookie from 'react-cookies'
 import {Link, Redirect} from 'react-router-dom';
 import { Menu,  Row, Col,Avatar, Layout, PageHeader } from 'antd';
 import Background from "../Background/index";
 import { UserOutlined, NotificationOutlined } from '@ant-design/icons';
 import {backendUrl} from "../../page/Users/Common";
 const { SubMenu } = Menu;
+var storage=window.localStorage;
 
 /**
 * 用户后台的侧边栏
@@ -15,21 +15,20 @@ class LeftSider extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            PermissionLevel:7,  // 0：超级管理员，1-5依次是四个子系统的管理员，6是普通用户
-            isLoggedIn: false,
+            PermissionLevel:7,  // 0：超级管理员，1-5分别是四个子系统的管理员，6是普通用户
         }
-        if(cookie.load("username") === ""){
-            this.state = {
-                isLoggedIn: false,
-                UserName:"未登录",
+
+        if(storage.hasOwnProperty("username")){
+            var name  = storage.getItem("username");
+            this.state ={
+                isLoggedIn: true,
+                UserName : name
             }
         }
-        else{
+        else {
             this.state = {
-                UserName: cookie.load("username"),
-                province: cookie.load("username"), //管理员所属省份
-                isLoggedIn: true,
-                //PermissionLevel:1,
+                isLoggedIn: false,
+                UserName:"未登录"
             }
         }
     }
@@ -40,14 +39,15 @@ class LeftSider extends React.Component {
             mode:"cors",
             credentials:"include",
             headers:{
-                'sessionid':cookie.loadAll().sessionid,
+                //'sessionid':cookie.loadAll().sessionid,
+                sessionid: storage.getItem("sessionid")
             }
         })
             .then(res => res.json())
             .then((result)=>{
                 var group = result.groups[0];
                 if(group === "SuperAdmin"){
-                    this.setState({
+                    this.setState = ({
                         PermissionLevel:0
                     })
                 }
@@ -87,16 +87,13 @@ class LeftSider extends React.Component {
             })
     }
 
-	render() {
-        if(!this.state.isLoggedIn){
-            return <Redirect to = {{pathname:'/ESS/LoginIn'}} />
-        }
-        else{
+	render() {       
+        if(this.state.isLoggedIn === true){
 		return(
         <Row>
             <Col span={4}>
             <Layout className="site-page-header-ghost-wrapper" >
-				<PageHeader ghost={false}  title={"Hello，"+ cookie.load("username")}>
+				<PageHeader ghost={false}  title={"Hello，"+ this.state.UserName}>
 				</PageHeader>						
 			</Layout>
             <div>
@@ -142,7 +139,10 @@ class LeftSider extends React.Component {
             </Col>
         </Row>
         );
-    }
+        }
+        else{
+            return <Redirect to = "/LoginIn" />
+        }
 	}
 }
 

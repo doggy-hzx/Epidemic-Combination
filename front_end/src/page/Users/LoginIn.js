@@ -6,6 +6,7 @@ import '../../asserts/css/Info.css';
 import Title from './Title';
 import {backendUrl} from "./Common";
 import cookie from 'react-cookies'
+var storage=window.localStorage;
 
 class LoginIn extends Component {
     constructor(props) {
@@ -45,9 +46,13 @@ class LoginIn extends Component {
 
                 if(this.state.isLogin) {
                
+                    storage.setItem("sessionid",result.session_id);
+                    storage.setItem("username",this.state.username);
+                    console.log(storage.getItem("sessionid"));
+                    console.log(storage.getItem("username"))
+                    // for 用户登录子系统
                     cookie.save('sessionid',result.session_id);
                     cookie.save('username',this.state.username);
-                    console.log(cookie.load('usernames'))
 
                     alert(result.message);
                     this.setState({

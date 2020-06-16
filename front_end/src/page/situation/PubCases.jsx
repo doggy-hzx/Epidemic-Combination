@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Col, Layout, PageHeader, Row, Statistic, Form, InputNumber, Button, DatePicker, Typography} from 'antd';
 import moment from 'moment';
 import cookie from 'react-cookies'
+var storage=window.localStorage;
 
 const { Content, Footer } = Layout;
 const { Title } = Typography;
@@ -125,7 +126,7 @@ class PubCases extends React.Component {
 
 	constructor(props){
 		super(props);
-		var adname = cookie.load('username')
+		var adname = storage.getItem("username")
 
 		this.setState({
 			adminName: adname,

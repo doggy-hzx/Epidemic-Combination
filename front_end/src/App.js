@@ -7,7 +7,6 @@ import {BrowserRouter, Route,Switch} from 'react-router-dom';
 import Main from './components/Main/index'
 import LoginIn from './page/Users/LoginIn'
 import Create from './page/Users/Create'
-import cookie from 'react-cookies'
 import {Login} from './page/supplies/pages/login/index'
 import {Register} from './page/supplies/pages/register/index'
 import {AdminLogin} from './page/supplies/pages/adminLogin/index'
@@ -26,11 +25,6 @@ window.$postDownload=postDownload
 moment.locale("zh-cn");
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		cookie.save('username',"");
-	}
-	
 	render() {
 		return (
 			<div >

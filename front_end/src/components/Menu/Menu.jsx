@@ -1,10 +1,11 @@
 import React from 'react';
 import {Button} from 'antd';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Navi from './Navigator';
 import Logo from '../../asserts/logo.jpg';
 import './Menu.css';
-import cookie from 'react-cookies'
+var storage=window.localStorage;
+//import cookie from 'react-cookies'
 
 /**
  * logo + 导航栏
@@ -13,23 +14,19 @@ class Menu extends React.Component{
     // 控制后台菜单的显示
     constructor(props){
         super(props);
-        if(cookie.load('username') === ""){
-            this.state = {
-                isLoginIn:false,
-            }
-        }
-        else this.state = {
-            isLoginIn:true
+        this.state = {
+            isLoginIn:storage.hasOwnProperty("username")
         }
     }
 
     Out=()=>{
-        cookie.save('username',"");
-        // todo: 需要手动刷新页面
+        storage.removeItem("username")
+        //cookie.remove('username');
         this.setState = {
             isLoginIn:false,
         }
-        
+
+        window.location.reload();
     }
 
     render(){
