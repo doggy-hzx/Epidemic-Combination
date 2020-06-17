@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'Group06',
     'Group07',
+    'Group09',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,7 @@ DATABASES = {
 
 DATABASES_APPS_MAPPING = {
     'Group7': 'db1',
+    'Group9': 'db1',
     # 'users': 'db2',
 }
 
