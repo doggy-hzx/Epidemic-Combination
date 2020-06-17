@@ -6,9 +6,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from Group07 import dbrequest as g7
+import Group06
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('user/', include('Group06.users.urls')),
+    path('news/', include('Group06.news.urls')),
 
     path('ESS/index', g7.rqst_process),
     path('ESS/situation', g7.rqst_process),

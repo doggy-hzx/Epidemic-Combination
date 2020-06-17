@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'Group06',
+    'Group06.users',
+    'Group06.news',
     'Group07',
 ]
 
@@ -88,6 +89,15 @@ DATABASES = {
         "PASSWORD":'12345678',
         'HOST':'epidemic-case-demo.mysql.rds.aliyuncs.com',
         'PORT':'3306',
+    },
+    'db_g6': {
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'epidemic',  # 数据库名
+        'USER': 'se2020',  # 账号
+        'PASSWORD': 'Epidemic_2020',  # 密码
+        'HOST': '49.235.194.16',  # HOST
+        'POST': 3306,  # 端口
+
     }
 }
 
@@ -140,3 +150,27 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "templates","static"),    #公共静态文件目录，可以被搜集到上面的STATIC_ROOT下
 )
+
+# 用户表
+AUTH_USER_MODEL = 'users.UserInfo'
+
+# 邮件配置
+EMAIL_USE_SSL = True
+
+EMAIL_HOST = 'smtp.163.com'  # 如果是 163 改成 smtp.163.com
+
+EMAIL_PORT = 465
+
+EMAIL_HOST_USER = 'se_proj_reg@163.com'  # 帐号
+
+EMAIL_HOST_PASSWORD = 'CMOJHASAPVSICYHZ'  # 授权码（****）
+# 默认邮件
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_VERIFY_URL = 'http://127.0.0.1:3000/'
+
+
+DEFAULT_SUPERUSER_INFO = {
+    'phone': '15111111111',
+    'real_name': 'superUser',
+    'citizen_id': '500000000000000000'
+}
