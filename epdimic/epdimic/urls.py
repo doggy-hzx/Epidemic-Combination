@@ -22,5 +22,7 @@ urlpatterns = [
     path('ESS/situation/situationMoreInfo$', g7.rqst_process),
     path('ESS/background/Cases', g7.rqst_process),
     path('ESS/background/Cases$', g7.rqst_process),
+    
+    path('ESS/transport/', include('Group08.urls')),
     url(r'^(?P<path>.*)$', serve, {'document_root': ''}),
 ]
