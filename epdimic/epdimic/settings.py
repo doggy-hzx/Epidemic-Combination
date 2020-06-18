@@ -37,23 +37,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 
     'Group06',
     'Group07',
     'Group09',
+    'Group08',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'epdimic.urls'
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '1156609896@qq.com'  # 在这里填入您的QQ邮箱账号
+EMAIL_HOST_PASSWORD = 'erzfezlybfxsgibe'  # 请在这里填上您自己邮箱的授权码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_SSL = True
 
 TEMPLATES = [
     {
@@ -95,6 +107,7 @@ DATABASES = {
 DATABASES_APPS_MAPPING = {
     'Group7': 'db1',
     'Group9': 'db1',
+    'Group8': 'db1',
     # 'users': 'db2',
 }
 
