@@ -70,7 +70,9 @@ class NewsMain extends Component {
             .then(res => res.json())
             .then((result)=>{
                 this.setState({
-                    data_1:result.news,
+                    data_1:result.news1,
+                    data_2:result.news2,
+                    data_3:result.news3,
                 })
             },
             (error)=>{
@@ -82,7 +84,6 @@ class NewsMain extends Component {
     test=(e,params)=>{
         update.title = e.title;
         update.params = params;
-        
         this.setState({
             flag:1,
         })
