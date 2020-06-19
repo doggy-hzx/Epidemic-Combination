@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input} from 'antd';
+import { Input } from 'antd';
 import { Typography } from 'antd';
 import RiskyShifts from './riskyshifts.js'
 import { DatePicker } from 'antd';
@@ -10,11 +10,11 @@ const server = 'http://127.0.0.1:8000/ESS';//django的服务器地址
 
 const { Title } = Typography;
 
-class HomeShift extends Component {
+class HomeFlight extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            shift_id: 0,
+            flight_id: 0,
             No: "",
             start_p: "",
             end_p: "",
@@ -22,13 +22,13 @@ class HomeShift extends Component {
             danger_level: "",
             board_id: "",
             register_id: "",
-            type: 0,
+            type: 1,
             queryResult: []
         }
         this.onInputChange = this.onInputChange.bind(this);
         this.onDateChange = this.onDateChange.bind(this);
-        this.query1 = this.query1.bind(this);
-        this.query2 = this.query2.bind(this);
+        this.query = this.query.bind(this);
+
     }
 
     onDateChange(date, dateString) {
@@ -43,11 +43,11 @@ class HomeShift extends Component {
         });
     }
 
-    query1() {
+    query() {
         fetch(
             server + '/transport/search1/?uid=2'
             + '&start_p=' + this.state.start_p + '&end_p=' + this.state.end_p
-            + '&No=' + this.state.No + '&date=' + this.state.start_t + '&type=0'
+            + '&No=' + this.state.No + '&date=' + this.state.start_t + '&type=1'
         )
             .then(res => res.json())
             .then(data => {
@@ -59,42 +59,26 @@ class HomeShift extends Component {
             })
             .catch(e => console.log('错误:', e))
     }
-
-    query2() {
-        fetch(
-            server + '/transport/search1/?uid=2' + '&type=0'
-        )
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                //这里调用了this.setState，这个方法会自动重新渲染界面（也就是render一次）
-                this.setState({
-                    queryResult: data
-                })
-            })
-            .catch(e => console.log('错误:', e))
-    }
-
 
     render() {
         return (
             <div>
-                <center><Title level={2}>同乘交通自查</Title></center>
                 <div className="container">
+                    <center><Title level={2}>航班自查</Title></center>
                     <Input placeholder="出发地" size="large" className="input-width" onChange={(e) => (this.onInputChange('start_p', e))} />
                     <br /><br />
                     <Input placeholder="到达地" size="large" className="input-width" onChange={(e) => (this.onInputChange('end_p', e))} />
                     <br /><br />
-                    <Input placeholder="班次号" size="large" className="input-width" onChange={(e) => (this.onInputChange('No', e))} />
+                    <Input placeholder="航班号" size="large" className="input-width" onChange={(e) => (this.onInputChange('No', e))} />
                     <br /><br />
                     <DatePicker className="input-width" onChange={(date, dateString) => this.onDateChange(date, dateString)} />
                     <br /><br />
-                    <Button type="primary" onClick={this.query1}>查询</Button>
+                    <Button type="primary" onClick={this.query}>查询</Button>
                 </div>
                 <div className="container">
                     <div className="table-container">
                         <Title level={3}>查询结果</Title>
-                        <RiskyShifts content={this.state.queryResult} type={0} role='user' />
+                        <RiskyShifts content={this.state.queryResult} type={1} role='user' />
                     </div>
                 </div>
             </div>
@@ -102,4 +86,4 @@ class HomeShift extends Component {
     }
 }
 
-export default HomeShift;
+export default HomeFlight;
