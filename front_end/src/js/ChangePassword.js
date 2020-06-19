@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route ,Redirect} from 'react-router-dom';
-import '../../asserts/css/ChangePassword.css'
+import '../asserts/css/ChangePassword.css'
 import {backendUrl} from './Common'
 import cookie from 'react-cookies'
 
@@ -43,12 +43,11 @@ class ChangePassword extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    alert(result.message);
-                    // if(result.isSuccess){
-                    //     alert("更改成功");
-                    // }else{
-                    //     alert("更改失败");
-                    // }
+                    if(result.isSuccess){
+                        alert("更改成功");
+                    }else{
+                        alert("更改失败");
+                    }
                 },
             (error)=>{
                 console.log(error);
@@ -80,7 +79,7 @@ class ChangePassword extends Component {
                 </div>
             );
         }else{
-            return <Redirect to = {{pathname:'/ESS/background/ChangeInfo'}} />
+            return <Redirect to = {{pathname:'/User/Change'}} />
         }
     }
 }

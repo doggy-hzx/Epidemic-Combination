@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Title from './Title';
 import { Redirect } from 'react-router-dom';
 import UserSelect from './UserSelect';
-import '../../asserts/css/Comment.css'
+import '../asserts/css/Comment.css'
 
 
 class Comment extends Component {
@@ -43,6 +43,8 @@ class Comment extends Component {
         if(this.state.flag === 3){
             return (
                 <div>
+                    <Title></Title>
+                    <UserSelect Info = {this.Info} Change = {this.Change} Comment = {this.Comment} Application = {this.Application}></UserSelect>
                     <div className = "Comment">
                         123
                     </div>

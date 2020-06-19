@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route ,Redirect } from 'react-router-dom';
-import '../../asserts/css/App.css';
-import '../../asserts/css/Logo.css';
-import '../../asserts/css/Info.css';
+import '../asserts/css/App.css';
+import '../asserts/css/Logo.css';
+import '../asserts/css/Info.css';
 import Title from './Title'
 import {backendUrl} from "./Common";
 import cookie from 'react-cookies'
-import { Button } from 'antd';
-import Navi from '../../components/Menu/Navigator';
-import Logo from '../../asserts/logo.jpg';
-import '../../components/Menu/Menu.css';
 
 class Create extends Component {
     constructor(props) {
@@ -79,19 +75,16 @@ class Create extends Component {
             alert("身份证号不合法!");
         }else{
             
-        //     fetch(backendUrl+"user/register/post",{
-        //         mode:"cors",
-        //         credentials: 'include',
-        // headers:{
-        //     'sessionid':cookie.loadAll().sessionid,
-        // }
-        //     })
-        //         .then(res => res.json())
-        //         .then((tokenresult)=>{
-        //         },
-        //     (error)=>{
-        //         console.log(error);
-        //     })
+            fetch(backendUrl+"user/register/post",{
+                mode:"cors",
+                credentials: 'include',
+            })
+                .then(res => res.json())
+                .then((tokenresult)=>{
+                },
+            (error)=>{
+                console.log(error);
+            })
 
             fetch("http://127.0.0.1:8000/user/register/post/",{
                 method:"post",
@@ -100,19 +93,15 @@ class Create extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    alert(result.message);
-                    if(result.isSuccess){
-                        this.setState({
-                    flag:0,
-                    })
-                    }
                 },
             (error)=>{
                 console.log(error);
             })
 
-
-
+            alert("用户注册成功");
+            this.setState({
+                flag:0,
+            })
         }
 
     }
@@ -171,11 +160,7 @@ class Create extends Component {
         if(this.state.flag === 2){
             return (
                 <div>
-                    <div className = "header">
-                        <img class = "logo" src = {Logo} alt="校徽" />
-                        <div class ="title"> 疫情管控系统 </div>
-                        <div style = {{alignSelf:'flex-end'}}> <Navi /> </div>
-                    </div>
+                    <Title></Title>
                     <div className = "Info_Create" style={{float:'left'}}>
                         <div>
                             <form>
