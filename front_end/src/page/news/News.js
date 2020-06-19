@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { Button, Comment, Tooltip, Avatar,List } from 'antd';
+import { Button, Comment, Tooltip, Avatar,List,Input } from 'antd';
 import moment from 'moment';
 import '../../asserts/css/News.css'
+import Navi from '../../components/Menu/Navigator';
+import Logo from '../../asserts/logo.jpg';
+import '../../components/Menu/Menu.css';
 
+const { TextArea } = Input;
+
+var user="doggy";
+var data = {user:user,com:""};
 
 class News extends Component {
     constructor(props) {
@@ -10,10 +17,6 @@ class News extends Component {
         this.state = {
             news:"新闻",
             comment:[
-                {user:"",com:""},
-                {user:"",com:""},
-                {user:"",com:""},
-                {user:"",com:""},
             ],
 
         };
@@ -44,26 +47,46 @@ class News extends Component {
         console.log(this.props.location.state);
     }
 
+    loadComment=(e)=>{
+        data.com = e.target.value;
+    }
+
+    addComment=()=>{
+        this.setState({
+            comment:[...this.state.comment,data],
+        })
+    }
+
     render() {
         return (
-            <div>
-                <div className = "News">
+            <div className = "News">
+                <div className = "header">
+                        <img class = "logo" src = {Logo} alt="校徽" />
+                        <div class ="title"> 疫情管控系统 </div>
+                        <div style = {{alignSelf:'flex-end'}}> <Navi /> </div>
+                </div>
+                <div id = "new">
                     {this.state.news}
                 </div>
-                <List
-                    id = "list"
-                    bordered
-                    dataSource = {this.state.data_1}
-                    renderItem = {item=>(
-                        <List.Item>
-                            <List.Item.Meta
-                                title = {<a>{item.title}</a>}
-                                onClick = {()=>this.test(item,"process")}>
-                            </List.Item.Meta>
-                        </List.Item>
-                    )}>
-                </List>
-                
+                <div id = "list">
+                    <List
+                        bordered
+                        dataSource = {this.state.comment}
+                        renderItem = {item=>(
+                            <List.Item>
+                                <List.Item.Meta
+                                    title = {<a>{item.user}</a>}
+                                    description={<a>{item.com}</a>}>
+                                </List.Item.Meta>
+                            </List.Item>
+                        )}>
+                    </List>
+                </div>
+                <div id = "comment">
+                    <TextArea rows={4} placeholder = "请输入评论" id = "cinput" onChange = {(e)=>{this.loadComment(e)}}>
+                    </TextArea>
+                    <Button type = "primary" onClick = {this.addComment}>提交</Button>
+                </div>
             </div>
         );
     }

@@ -24,7 +24,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6442fa7-4476-42c0-82dc-37e7fc8f1ebc" name="Default Changelist" comment="" />
+    <list default="true" id="b6442fa7-4476-42c0-82dc-37e7fc8f1ebc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Group06/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/page/news/News.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/page/news/News.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +57,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Group06" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -79,8 +82,8 @@
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="DJANGO_SETTINGS_MODULE" value="epdimic.settings" />
       </envs>
-      <option name="SDK_HOME" value="D:\学习\Epidemic-Combination\epdimic\venv\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="SDK_HOME" value="E:\vs\疫情管理系统\汇总\doggy\EpidemicInfoMgr_Backend-master\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -107,6 +110,7 @@
       <option name="presentableId" value="Default" />
       <updated>1592382568877</updated>
       <workItem from="1592382576762" duration="5336000" />
+      <workItem from="1592579991474" duration="27000" />
     </task>
     <servers />
   </component>
@@ -123,12 +127,14 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="140" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592383098868">
-      <screen x="0" y="0" width="1368" height="872" />
+    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592580018456">
+      <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state x="140" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1368.872@0.0.1368.872" timestamp="1592383098868" />
+    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592580018456" />
     <state x="362" y="20" key="#epdimic" timestamp="1592386935749">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
