@@ -5,6 +5,7 @@ import SildeShow from './ImgFlow';
 import '../../asserts/css/NewMain.css'
 import { List, Typography, Divider, Tabs} from 'antd';
 import { BrowserRouter as Router, Route ,Redirect } from 'react-router-dom';
+import cookie from 'react-cookies'
 
 const { TabPane } = Tabs;
 
@@ -33,17 +34,37 @@ class NewsMain extends Component {
                 {title:'新闻三'},
             ],
             flag:0,
+            result:"",
         };
     }
 
     componentDidMount(){
+        
+        fetch("https://127.0.0.1:8000/"+"user/profile/",{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            headers:{
+                'sessionid':cookie.loadAll().sessionid,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                console.log(result);
+                this.setState({
+                    result:result,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
 
         fetch('https://127.0.0.1:8000/NewsList/proccess/',{
             method:"get",
             mode:"cors",
             credentials:"include",
             header:{
-                
+                'User':this.state.result,
             }
         })
             .then(res => res.json())
@@ -61,21 +82,17 @@ class NewsMain extends Component {
     test=(e,params)=>{
         update.title = e.title;
         update.params = params;
-        console.log(update);
+        
         this.setState({
             flag:1,
         })
-    }
-
-    callback=(key)=>{
-        console.log(key);
     }
 
     render() {
         if(this.state.flag === 0){
             return (
                 <div className = "NewMain">
-                    <Tabs defaultActiveKey="1" onChange = {()=>this.callback()} id = "tabs">
+                    <Tabs defaultActiveKey="1" id = "tabs">
                         <TabPane tab = "防疫进展" key = "1">
                             <List
                                 id = "list"
