@@ -6,4 +6,5 @@ urlpatterns = [
     path('NewsList/details/<int:newsid>/comment',views.publish_comment),
     path('PublishNews/',views.publish_news),
     path('NewsList/details/<int:newsid>/', views.view_news),
+    
 ]

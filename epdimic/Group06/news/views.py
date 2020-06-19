@@ -6,10 +6,10 @@ from django.contrib.auth.models import Group, User
 from django.db.models import Avg, Max, Min, Count, Sum
 import json
 import time
-from users import decorators
+from . import users.decorators
 from . import models
 
-from users.models import UserInfo
+from . import users.models.UserInfo
 
 # Create your views here.
 

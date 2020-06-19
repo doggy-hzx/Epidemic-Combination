@@ -14,6 +14,7 @@ class News(models.Model):
     view_num = models.BigIntegerField(default=0)
     share_num = models.BigIntegerField(default=0)
     cmt_num = models.BigIntegerField(default=0)
+    
     class Meta:
         db_table = 'News_news'
 
