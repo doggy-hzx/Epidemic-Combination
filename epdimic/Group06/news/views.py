@@ -8,6 +8,7 @@ import json
 import time
 from users import decorators
 from . import models
+from users.models import UserInfo
 
 # Create your views here.
 
@@ -34,7 +35,7 @@ def publish_news(request):
             News_content = json.loads(request.body)
             
             UserName=News_content['username']
-            User_id=models.UserInfo.objects.get(username=UserName)
+            User_id=UserInfo.objects.get(username=UserName)
 
             News_id = models.News.objects.aggregate(Max('news_id'))[
                 'news_id__max']
@@ -106,9 +107,9 @@ def publish_comment(request,newsid):
         Comm = json.loads(request.body)
 
         UserName = Comm['username']
-        User_id = models.UserInfo.objects.get(username=UserName)
+        User_id = UserInfo.objects.get(username=UserName)
         Cmt_content = Comm['comment']
-    except models.UserInfo.DoesNotExist:
+    except UserInfo.DoesNotExist:
         return HttpResponse("请登录")  # 游客
 
     # 获取评论数据
@@ -218,7 +219,7 @@ def report(request):
     # 获取举报信息
     Cmt_info = json.loads(request.body)
     UserName = Cmt_info['username']
-    User_id = models.UserInfo.objects.get(username=UserName)
+    User_id = UserInfo.objects.get(username=UserName)
     Cmt_id = Cmt_info['cmt_id']
     report_reason = Cmt_info['reason']
     
@@ -311,7 +312,7 @@ def likes(request):
     User = json.loads(request.body)
 
     UserName = User['username']
-    User_id = models.UserInfo.objects.get(username=UserName)
+    User_id = UserInfo.objects.get(username=UserName)
 
     Report_info = models.JudgeComment.objects.create(
         judge_cmt_id=Judge_cmt_id, user_id=User_id, cmt_id=Cmt_id, report_time=Report_time, report_type=0)
