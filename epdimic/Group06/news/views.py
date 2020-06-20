@@ -125,7 +125,12 @@ def publish_comment(request):
         return HttpResponse("内容过长，请重新输入")
 
     Comment_id = models.Comment.objects.aggregate(Max('cmt_id'))[
-        'cmt_id__max']+1
+        'cmt_id__max']
+    if Comment_id is None:
+        Comment_id=1
+    else:
+        Comment_id=Comment_id+1
+        
     Reliable_id = 3
     Cmt_add_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
@@ -135,13 +140,23 @@ def publish_comment(request):
 
     # 插入新闻评论关系表
     newsComm_id = models.NewsComments.objects.aggregate(Max('news_cmt_id'))[
-        'news_cmt_id__max']+1
+        'news_cmt_id__max']
+    if newsComm_id is None:
+        newsComm_id=1
+    else:
+        newsComm_id=newsComm_id+1
+
     comm_relation = models.NewsComments.objects.create(
         news_cmt_id=newsComm_id, cmt_id=Comment_id, news_id=newsid)
 
     # 插入用户评论关系表
     Pub_cmt_id = models.PublishComments.objects.aggregate(Max('pub_cmt_id'))[
-        'pub_cmt_id']+1
+        'pub_cmt_id']
+    if Pub_cmt_id is None:
+        Pub_cmt_id=1
+    else:
+        Pub_cmt_id=Pub_cmt_id+1
+
     comm_user = models.PublishComments.objects.create(
         pub_cmt_id=Pub_cmt_id, user_id=User_id, cmt_id=Comment_id)
 
