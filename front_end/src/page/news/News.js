@@ -87,6 +87,7 @@ class News extends Component {
             credentials:"include",
             headers:{
                 'User':this.state.result,
+                'sessionid':cookie.loadAll().sessionid,
             }
         })
             .then(res => res.json())
