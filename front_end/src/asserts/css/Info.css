@@ -38,7 +38,6 @@
     margin-left: 2.5%;
     padding-left: 2.5%;
     border-radius: 10px;
-    opacity: 0.8;
 }
 
 .Info_Login button{
@@ -53,11 +52,6 @@
 
 
 .Info_Create button{
-    color: black;
-    background-color: white;
-    border-color: #00478180;
-    transition-duration: 0.4s;
-    opacity: 0.8;
     width: 90%;
     height: 40px;
     font-size: 20px;
@@ -65,17 +59,6 @@
     border-radius: 10px;
 }
 
-.Info_Create button:hover{
-    color: white;
-    background-color: #00478180;
-    border-color: #00478180;
-    opacity: 0.8;
-    width: 90%;
-    height: 40px;
-    font-size: 20px;
-    margin-bottom: 5.5%;
-    border-radius: 10px;
-}
 
 .Info_Create #ZhuCe{
     color: black;

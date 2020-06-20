@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route ,Redirect} from 'react-router-dom';
 import '../../asserts/css/ChangePassword.css'
+import { Button, Comment, Tooltip, Avatar,List,Input } from 'antd';
 import {backendUrl} from './Common'
 import cookie from 'react-cookies'
+import Menu from '../../components/Menu/Menu';
 
 class ChangePassword extends Component {
     constructor(props) {
@@ -65,17 +67,20 @@ class ChangePassword extends Component {
     render() {
         if(this.state.flag === 0){
             return (
-                <div className = "ChangePassword">
-                    <input type = "text" placeholder = {this.state.phone} ref = "phone" onChange = {(e)=>this.GetCode(e)}></input>
-                    <div>
-                        <button onClick = {this.Submit}>
-                            提交
-                        </button>
-                    </div>
-                    <div>
-                        <button onClick = {this.Back}>
-                            返回
-                        </button>
+                <div>
+                    <Menu></Menu>
+                    <div className = "ChangePassword">
+                        <Input placeholder = "请输入新密码" ref = "phone" onChange = {(e)=>this.GetCode(e)}></Input>
+                        <div>
+                            <Button onClick = {this.Submit} type = "primary">
+                                提交
+                            </Button>
+                        </div>
+                        <div>
+                            <Button onClick = {this.Back} type = "primary">
+                                返回
+                            </Button>
+                        </div>
                     </div>
                 </div>
             );

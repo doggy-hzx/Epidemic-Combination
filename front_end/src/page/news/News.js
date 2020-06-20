@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Button, Comment, Tooltip, Avatar,List,Input } from 'antd';
 import moment from 'moment';
 import '../../asserts/css/News.css'
-import Navi from '../../components/Menu/Navigator';
-import Logo from '../../asserts/logo.jpg';
-import '../../components/Menu/Menu.css';
+import Menu from '../../components/Menu/Menu';
 import cookie from 'react-cookies'
 
 
@@ -22,7 +20,8 @@ class News extends Component {
                 cmts:[
                     {user:"111",com:"11"}
                 ],
-                title:"标题"
+                title:"标题",
+                num:""
             },
             resultUser:""
         };
@@ -63,6 +62,7 @@ class News extends Component {
                 this.setState({
                     result:result,
                 })
+                console.log(this.state.result);
             },
             (error)=>{
                 console.log(error);
@@ -79,7 +79,7 @@ class News extends Component {
 
     addComment=()=>{
         data.user = this.state.resultUser.username;
-        fetch('http://127.0.0.1:8000/NewsList/',{
+        fetch('http://127.0.0.1:8000/NewsList/details/'+ this.state.result.num +'',{
             method:"post",
             body:JSON.stringify(data),
             mode:"cors",
@@ -102,11 +102,7 @@ class News extends Component {
     render() {
         return (
             <div className = "News">
-                <div className = "header">
-                        <img class = "logo" src = {Logo} alt="校徽" />
-                        <div class ="title"> 疫情管控系统 </div>
-                        <div style = {{alignSelf:'flex-end'}}> <Navi /> </div>
-                </div>
+                <Menu></Menu>
                 <div id = "new">
                     {this.state.result.title}
                 </div>

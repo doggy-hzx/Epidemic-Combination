@@ -6,7 +6,7 @@ import '../../asserts/css/Info.css';
 import Title from './Title'
 import {backendUrl} from "./Common";
 import cookie from 'react-cookies'
-import { Button } from 'antd';
+import { Button ,Input } from 'antd';
 import Navi from '../../components/Menu/Navigator';
 import Logo from '../../asserts/logo.jpg';
 import '../../components/Menu/Menu.css';
@@ -181,37 +181,37 @@ class Create extends Component {
                             <form>
                                 <div>
                                     <div>
-                                        <input type = "text" name = "用户名" placeholder = "用户名" ref = "name" onChange = {(e)=>this.GetUsername(e)}/>
-                                        <input type = "text" name = "邮箱" placeholder = "邮箱" ref = "address" onChange = {(e)=>this.GetEmail(e)}/>
+                                        <Input type = "text" name = "用户名" placeholder = "用户名" ref = "name" onChange = {(e)=>this.GetUsername(e)}/>
+                                        <Input type = "text" name = "邮箱" placeholder = "邮箱" ref = "address" onChange = {(e)=>this.GetEmail(e)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <input type = {this.state.change} name = "密码" placeholder = "密码" ref = "code" onChange = {(e)=>this.GetCode(e)}/>
-                                        <input type = "text" name = "电话号码" placeholder = "电话号码" ref = "phone" onChange = {(e)=>this.GetPhone(e)}/>
+                                        <Input type = {this.state.change} name = "密码" placeholder = "密码" ref = "code" onChange = {(e)=>this.GetCode(e)}/>
+                                        <Input type = "text" name = "电话号码" placeholder = "电话号码" ref = "phone" onChange = {(e)=>this.GetPhone(e)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <input type = {this.state.change} name = "确认密码" placeholder = "确认密码" ref = "if_same_code"/>
-                                        <input type = "text" name = "身份证号" placeholder = "身份证号" ref = "ID" onChange = {(e)=>this.GetID(e)}/>
+                                        <Input type = {this.state.change} name = "确认密码" placeholder = "确认密码" ref = "if_same_code"/>
+                                        <Input type = "text" name = "身份证号" placeholder = "身份证号" ref = "ID" onChange = {(e)=>this.GetID(e)}/>
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <input type = "text" name = "真实姓名" placeholder = "真实姓名" ref = "real_name" onChange = {(e)=>this.GetRealName(e)}/>
+                                        <Input type = "text" name = "真实姓名" placeholder = "真实姓名" ref = "real_name" onChange = {(e)=>this.GetRealName(e)}/>
                                     </div>
                                 </div>
                             </form>
                             <div>
-                                <button onClick = {this.UserAppData}>
+                                <Button onClick = {this.UserAppData} type = "primary">
                                     用户注册
-                                </button>
+                                </Button>
                             </div>
                             <div>
-                                <button onClick = {this.Back}>
+                                <Button onClick = {this.Back} type = "primary">
                                     返回
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </div>
