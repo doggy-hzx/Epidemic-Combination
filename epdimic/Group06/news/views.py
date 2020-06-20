@@ -102,21 +102,17 @@ def publish_news(request):
 
 #@decorators.login_required
 def publish_comment(request):
-    # # 获取内容
-    # try:
-    #     Comm = json.loads(request.body)
+    # 获取内容
+    try:
+        Comm = json.loads(request.body)
 
-    #     UserName = Comm['user']
-    #     User_id = usermodels.UserInfo.objects.get(username=UserName)
-    #     Cmt_content = Comm['com']
-    #     newsid=Comm['num']
-    # except usermodels.UserInfo.DoesNotExist:
-    #     return HttpResponse("发布失败")  # 发布失败
-    UserName='doggy'
-    user_obj = usermodels.UserInfo.objects.get(username=UserName)
-    User_id=user_obj.id
-    Cmt_content='aaaaaaaaaaaaaaaaaaaa'
-    newsid=1
+        UserName = Comm['user']
+        User_obj = usermodels.UserInfo.objects.get(username=UserName)
+        Cmt_content = Comm['com']
+        newsid=Comm['num']
+    except usermodels.UserInfo.DoesNotExist:
+        return HttpResponse("发布失败")  # 发布失败
+
 
     # 检查评论违禁词
     for word in banned_word_list:
@@ -158,10 +154,8 @@ def publish_comment(request):
     else:
         Pub_cmt_id=Pub_cmt_id+1
 
-    
-
     comm_user = models.PublishComments.objects.create(
-        pub_cmt_id=Pub_cmt_id, user_id=user_obj, cmt_id=comm_obj)
+        pub_cmt_id=Pub_cmt_id, user_id=usermodels.UserInfo.objects.get(id=User_id), cmt_id=comm_obj)
 
     return HttpResponse("评论成功")
 

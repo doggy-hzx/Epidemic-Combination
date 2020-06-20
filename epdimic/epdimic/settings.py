@@ -253,3 +253,5 @@ DEFAULT_SUPERUSER_INFO = {
     'real_name': 'superUser',
     'citizen_id': '500000000000000000'
 }
+
+SILENCED_SYSTEM_CHECKS = ['fields.E300', 'fields.E307']
