@@ -159,7 +159,7 @@ class User extends Component {
         }else if(this.state.flag === 0){
             return <Redirect to = {{pathname:'/'}} />
         }else if(this.state.flag === 5){
-            return <Redirect to = {{pathname:'/Operator'}} />
+            return <Redirect to = {{pathname:'/NewsOperator'}} />
         }else if(this.state.flag === 6){
             return <Redirect to = {{pathname:'/SuperOperator'}} />
         }
