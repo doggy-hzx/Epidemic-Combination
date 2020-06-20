@@ -34,7 +34,7 @@ class NewsOperator extends Component {
     }
 
     componentDidMount=()=>{
-        fetch("https://127.0.0.1:8000/"+"user/profile/",{
+        fetch("http://127.0.0.1:8000/"+"user/profile/",{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -53,7 +53,7 @@ class NewsOperator extends Component {
                 console.log(error);
             })
 
-        fetch('https://127.0.0.1:8000/NewsList/proccess',{
+        fetch('http://127.0.0.1:8000/NewsList/proccess',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -72,7 +72,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('https://127.0.0.1:8000/NewsList/knowledge',{
+        fetch('http://127.0.0.1:8000/NewsList/knowledge',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -91,7 +91,7 @@ class NewsOperator extends Component {
             })
 
         
-        fetch('https://127.0.0.1:8000/NewsList/newest',{
+        fetch('http://127.0.0.1:8000/NewsList/newest',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -123,7 +123,7 @@ class NewsOperator extends Component {
 
 
     Delect=(num)=>{
-        fetch('https://127.0.0.1:8000/NewsList/Delnews',{
+        fetch('http://127.0.0.1:8000/NewsList/Delnews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
