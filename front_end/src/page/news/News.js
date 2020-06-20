@@ -25,7 +25,7 @@ class News extends Component {
     componentDidMount=()=>{
         fetch('https://127.0.0.1:8000/NewsList/'+this.props.location.state.params+'/',{
             method:"post",
-            body:JSON.stringify(this.props.location.state.title),
+            body:JSON.stringify(this.props.location.state.num),
             mode:"cors",
             credentials:"include",
             headers:{
@@ -35,7 +35,7 @@ class News extends Component {
             .then(res => res.json())
             .then((result)=>{
                 this.setState({
-                    news:result.news,
+                    news:result,
                 })
             },
             (error)=>{

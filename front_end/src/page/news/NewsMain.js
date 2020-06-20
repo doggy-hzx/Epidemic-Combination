@@ -9,7 +9,7 @@ import cookie from 'react-cookies'
 const { TabPane } = Tabs;
 
 var update = {
-    title:"123",
+    num:"",
     params:"",
 };
 
@@ -111,7 +111,7 @@ class NewsMain extends Component {
     }
 
     test=(e,params)=>{
-        update.title = e.title;
+        update.num = e.num;
         update.params = params;
         this.setState({
             flag:1,
