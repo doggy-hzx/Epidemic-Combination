@@ -71,7 +71,7 @@ class PublishNews(models.Model):    # 管理员发布新闻表
     pub_news_id = models.BigAutoField(primary_key=True)
     # 用户为空可以显示用户已注销或不存在，不需要删除记录
     user_id = models.ForeignKey(
-        'UserInfo', on_delete=models.SET_NULL, null=True)
+        'users.UserInfo', on_delete=models.SET_NULL, null=True)
     news_id = models.ForeignKey('News', on_delete=models.CASCADE)
     class Meta:
         db_table = 'News_publishnews'
@@ -81,7 +81,7 @@ class ShareNews(models.Model):      # 用户分享新闻表
     share_id = models.BigAutoField(primary_key=True)
     # 用户为空可以显示用户已注销或不存在，不需要删除记录
     user_id = models.ForeignKey(
-        'UserInfo', on_delete=models.SET_NULL, null=True)
+        'users.UserInfo', on_delete=models.SET_NULL, null=True)
     news_id = models.ForeignKey('News', on_delete=models.CASCADE)
     share_text = models.TextField(max_length=512, blank=True)
     share_time = models.DateTimeField(auto_now_add=True)
@@ -93,7 +93,7 @@ class PublishComments(models.Model):    # 用户发表评论表
     pub_cmt_id = models.BigAutoField(primary_key=True)
     # 用户为空可以显示用户已注销或不存在，不需要删除记录
     user_id = models.ForeignKey(
-        'UserInfo', on_delete=models.SET_NULL, null=True)
+        'users.UserInfo', on_delete=models.SET_NULL, null=True)
     cmt_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
     class Meta:
         db_table = 'News_publishcomments'
@@ -103,7 +103,7 @@ class JudgeComment(models.Model):   # 用户点赞或举报评论表
     judge_cmt_id = models.BigAutoField(primary_key=True)
     # 用户为空可以显示用户已注销或不存在，不需要删除记录
     user_id = models.ForeignKey(
-        'UserInfo', on_delete=models.SET_NULL, null=True)
+        'users.UserInfo', on_delete=models.SET_NULL, null=True)
     cmt_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
     report_text = models.TextField(
         max_length=1024, null=True, default=None)    # 举报的时候会有举报内容，点赞就算了，默认是空

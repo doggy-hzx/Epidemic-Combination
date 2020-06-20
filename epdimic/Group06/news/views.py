@@ -1,15 +1,14 @@
-from django.shortcuts import render
-from django.shortcuts import HttpResponse, HttpResponseRedirect
-# from rest_framework.views import APIView
-from rest_framework.response import Response
-from django.contrib.auth.models import Group, User
-from django.db.models import Avg, Max, Min, Count, Sum
 import json
 import time
-from . import users.decorators
-from . import models
 
-from . import users.models.UserInfo
+from django.contrib.auth.models import Group, User
+from django.db.models import Avg, Count, Max, Min, Sum
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+# from rest_framework.views import APIView
+from rest_framework.response import Response
+from . import models
+from Group06.users import decorators
+from Group06.users import models as usermodels
 
 # Create your views here.
 
@@ -36,7 +35,7 @@ def publish_news(request):
             News_content = json.loads(request.body)
             
             UserName=News_content['username']
-            User_id=UserInfo.objects.get(username=UserName)
+            User_id=usermodels.UserInfo.objects.get(username=UserName)
 
             News_id = models.News.objects.aggregate(Max('news_id'))[
                 'news_id__max']
@@ -96,7 +95,7 @@ def publish_news(request):
         # else:
             # return HttpResponse("请使用疫情新闻发布子系统管理员账号登录")
 
-        return HttpResponseRedirect('/News/')
+        return HttpResponseRedirect('发布成功')
 
 # 发表评论
 
@@ -108,9 +107,9 @@ def publish_comment(request,newsid):
         Comm = json.loads(request.body)
 
         UserName = Comm['username']
-        User_id = UserInfo.objects.get(username=UserName)
+        User_id = usermodels.UserInfo.objects.get(username=UserName)
         Cmt_content = Comm['comment']
-    except UserInfo.DoesNotExist:
+    except usermodels.UserInfo.DoesNotExist:
         return HttpResponse("请登录")  # 游客
 
     # 获取评论数据
@@ -220,7 +219,7 @@ def report(request):
     # 获取举报信息
     Cmt_info = json.loads(request.body)
     UserName = Cmt_info['username']
-    User_id = UserInfo.objects.get(username=UserName)
+    User_id = usermodels.UserInfo.objects.get(username=UserName)
     Cmt_id = Cmt_info['cmt_id']
     report_reason = Cmt_info['reason']
     

@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'epdimic.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'epidemic',  # 数据库名
+        'USER': 'se2020',  # 账号
+        'PASSWORD': 'Epidemic_2020',  # 密码
+        'HOST': '49.235.194.16',  # HOST
+        'POST': 3306,  # 端口
     },
     'db1': {
         'ENGINE': 'django.db.backends.mysql',
