@@ -100,29 +100,28 @@ def publish_news(request):
 # 发表评论
 
 
-@decorators.login_required
+#@decorators.login_required
 def publish_comment(request):
-    # 获取内容
-    try:
-        Comm = json.loads(request.body)
+    # # 获取内容
+    # try:
+    #     Comm = json.loads(request.body)
 
-        UserName = Comm['user']
-        User_id = usermodels.UserInfo.objects.get(username=UserName)
-        Cmt_content = Comm['com']
-        newsid=Comm['num']
-    except usermodels.UserInfo.DoesNotExist:
-        return HttpResponse("发布失败")  # 发布失败
+    #     UserName = Comm['user']
+    #     User_id = usermodels.UserInfo.objects.get(username=UserName)
+    #     Cmt_content = Comm['com']
+    #     newsid=Comm['num']
+    # except usermodels.UserInfo.DoesNotExist:
+    #     return HttpResponse("发布失败")  # 发布失败
+    UserName='doggy'
+    user_obj = usermodels.UserInfo.objects.get(username=UserName)
+    User_id=user_obj.id
+    Cmt_content='aaaaaaaaaaaaaaaaaaaa'
+    newsid=1
 
     # 检查评论违禁词
     for word in banned_word_list:
         if word in Cmt_content:
             return HttpResponse("发布失败，评论包含非法内容")
-
-    # 长度检查
-    if Cmt_content.length < 10:
-        return HttpResponse("内容过短，请重新输入")
-    if Cmt_content.length > 180:
-        return HttpResponse("内容过长，请重新输入")
 
     Comment_id = models.Comment.objects.aggregate(Max('cmt_id'))[
         'cmt_id__max']
@@ -130,13 +129,13 @@ def publish_comment(request):
         Comment_id=1
     else:
         Comment_id=Comment_id+1
-        
-    Reliable_id = 3
+
+    is_Reliable = 3
     Cmt_add_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
     # 插入评论表
-    comm_val = models.Comment.objects.create(
-        cmt_id=Comment_id, reliable_id=Reliable_id, cmt_content=Cmt_content, cmt_gen_time=Cmt_add_time, like_num=0)
+    comm_obj = models.Comment.objects.create(
+        cmt_id=Comment_id, is_reliable=is_Reliable, cmt_content=Cmt_content, cmt_gen_time=Cmt_add_time, like_num=0)
 
     # 插入新闻评论关系表
     newsComm_id = models.NewsComments.objects.aggregate(Max('news_cmt_id'))[
@@ -146,19 +145,23 @@ def publish_comment(request):
     else:
         newsComm_id=newsComm_id+1
 
+    ref_news=models.News.objects.get(news_id=newsid)
+
     comm_relation = models.NewsComments.objects.create(
-        news_cmt_id=newsComm_id, cmt_id=Comment_id, news_id=newsid)
+        news_cmt_id=newsComm_id, cmt_id=comm_obj, news_id=ref_news)
 
     # 插入用户评论关系表
     Pub_cmt_id = models.PublishComments.objects.aggregate(Max('pub_cmt_id'))[
-        'pub_cmt_id']
+        'pub_cmt_id__max']
     if Pub_cmt_id is None:
         Pub_cmt_id=1
     else:
         Pub_cmt_id=Pub_cmt_id+1
 
+    
+
     comm_user = models.PublishComments.objects.create(
-        pub_cmt_id=Pub_cmt_id, user_id=User_id, cmt_id=Comment_id)
+        pub_cmt_id=Pub_cmt_id, user_id=user_obj, cmt_id=comm_obj)
 
     return HttpResponse("评论成功")
 
