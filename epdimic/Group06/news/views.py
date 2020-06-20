@@ -17,9 +17,9 @@ banned_word_list = ['这里是一些违禁词']
 # 发布新闻
 
 
-@decorators.group_required('admin_1')
+#@decorators.group_required('admin_1')
 def publish_news(request):
-    if request.method == 'publish_news':
+    try:
         '''发布新闻
         '''
         # 检查权限
@@ -32,10 +32,7 @@ def publish_news(request):
 
         # 获取新闻数据
         if True:  # user_group == 'admin_1':  # 等一个接口用法
-            News_content = json.loads(request.body)
-
-            UserName = News_content['username']
-            User_id = usermodels.UserInfo.objects.get(username=UserName)
+            News_pub = json.loads(request.body)
 
             News_id = models.News.objects.aggregate(Max('news_id'))[
                 'news_id__max']
@@ -43,59 +40,75 @@ def publish_news(request):
                 News_id = 1
             else:
                 News_id = News_id+1
-            News_title = News_content['news_title']
-            News_url = News_content['news_content']
+
+            News_title = News_pub['title']
+            News_text = News_pub['text']
             News_gen_time = time.strftime(
                 "%Y-%m-%d %H:%M:%S", time.localtime())
-            Col_id = News_content['cl_id']
+            Col_name = News_pub['group']
+
+            Col_id=1
+
+            if Col_name=='process':
+                Col_id=1
+            elif Col_name=='knowledges':
+                Col_id=2
+            elif Col_name=='newest':
+                Col_id=3
+
+            col_obj=models.Column.objects.get(cl_id=Col_id)
+
             # 插入新闻表
-            news_val = models.News.objects.create(news_id=News_id, news_title=News_title, news_url=News_url,
+            news_val = models.News.objects.create(news_id=News_id, news_title=News_title, news_url=News_text,
                                                   news_gen_time=News_gen_time, view_num=0, share_num=0, cmt_num=0)
             # 插入栏目关系表
             news_col_id = models.NewsColumn.objects.aggregate(
-                Max('news_cl_id'))['news_cl_id']
+                Max('news_cl_id'))['news_cl_id__max']
             if news_col_id is None:
                 news_col_id = 1
             else:
                 news_col_id = news_col_id+1
 
             news_col_val = models.NewsColumn.objects.create(
-                news_cl_id=news_col_id, news_id=News_id, cl_id=Col_id)
+                news_cl_id=news_col_id, news_id=news_val, cl_id=col_obj)
 
-            # 插入管理员发布新闻表
-            Pub_news_id = models.PublishNews.objects.aggregate(
-                Max('pub_news_id'))['pub_news_id__max']
-            if Pub_news_id is None:
-                Pub_news_id = 1
-            else:
-                Pub_news_id = Pub_news_id+1
+            # # 插入管理员发布新闻表
+            # Pub_news_id = models.PublishNews.objects.aggregate(
+            #     Max('pub_news_id'))['pub_news_id__max']
+            # if Pub_news_id is None:
+            #     Pub_news_id = 1
+            # else:
+            #     Pub_news_id = Pub_news_id+1
 
-            news_cmt_val = models.PublishNews.objects.create(
-                pub_news_id=Pub_news_id, user_id=User_id, news_id=News_id)
+            # news_cmt_val = models.PublishNews.objects.create(
+            #     pub_news_id=Pub_news_id, user_id=User_id, news_id=News_id)
 
-            # 接下来处理可能存在的图片
-            img_url = News_title = News_content['img_path']
-            Img_id = models.Images.objects.aggregate(Max('img_id'))[
-                'img_id__max']
-            if Img_id is None:
-                Img_id = 1
-            else:
-                Img_id = Img_id+1
-            img_val = models.Images.objects.create(
-                img_id=Img_id, img_name='null', img_title='null', img_path=img_url)
-            # 插入新闻信息表
-            news_img_id = models.NewsImages.objects.aggregate(Max('news_files_id'))[
-                'news_files_id__max']
-            if news_img_id is None:
-                news_img_id = 1
-            else:
-                news_img_id = news_img_id+1
-            NIrelation = models.NewsImages.objects.create(
-                news_files_id=news_img_id, img_id=Img_id, news_id=News_id)
+            # # 接下来处理可能存在的图片
+            # img_url = News_title = News_content['img_path']
+            # Img_id = models.Images.objects.aggregate(Max('img_id'))[
+            #     'img_id__max']
+            # if Img_id is None:
+            #     Img_id = 1
+            # else:
+            #     Img_id = Img_id+1
+            # img_val = models.Images.objects.create(
+            #     img_id=Img_id, img_name='null', img_title='null', img_path=img_url)
+
+            # 插入新闻图片表
+            # news_img_id = models.NewsImages.objects.aggregate(Max('news_files_id'))[
+            #     'news_files_id__max']
+            # if news_img_id is None:
+            #     news_img_id = 1
+            # else:
+            #     news_img_id = news_img_id+1
+            # NIrelation = models.NewsImages.objects.create(
+            #     news_files_id=news_img_id, img_id=Img_id, news_id=News_id)
         # else:
             # return HttpResponse("请使用疫情新闻发布子系统管理员账号登录")
 
-        return HttpResponseRedirect('发布成功')
+    except:
+        return HttpResponse('发布失败')
+    return HttpResponse('发布成功')
 
 # 发表评论
 
@@ -115,10 +128,10 @@ def publish_comment(request):
         return HttpResponse("发布失败")  # 发布失败
 
 
-    # 检查评论违禁词
-    for word in banned_word_list:
-        if word in Cmt_content:
-            return HttpResponse("发布失败，评论包含非法内容")
+    # # 检查评论违禁词
+    # for word in banned_word_list:
+    #     if word in Cmt_content:
+    #         return HttpResponse("发布失败，评论包含非法内容")
 
     Comment_id = models.Comment.objects.aggregate(Max('cmt_id'))[
         'cmt_id__max']
@@ -186,7 +199,7 @@ def view_news(request):
 
             cmtlist.append(cmt_item)
 
-    newsPage = {'cmts': cmtlist, 'news': 'news_cont.news_url',
+    newsPage = {'cmts': cmtlist, 'news': news_cont.news_url,
                 'title': news_cont.news_title}
 
     content = json.dumps(newsPage)
@@ -352,19 +365,23 @@ def getImg(request):
 
 
 def del_news(request):
-    News = json.loads(request.body)
-    News_id = News['num']
+    try:
+        News = json.loads(request.body)
+        News_id = News['num']
 
-    # 删除新闻评论
-    items_newscomm = models.NewsComments.objects.filter(news_id=News_id)
-    for item in items_newscomm:
+        # 删除新闻评论
+        items_newscomm = models.NewsComments.objects.filter(news_id=News_id)
+        for item in items_newscomm:
+            commID = item.cmt_id.cmt_id
+            comm_obj = models.Comment.objects.get(cmt_id=commID)
+            comm_obj.delete()
+        # 删除新闻
+        news_obj = models.News.objects.get(news_id=News_id)
+        news_obj.delete()
+    except:
+        return HttpResponse("删除失败")
 
-        commID = item.cmt_id.cmt_id
-        comm_obj = models.Comment.objects.get(cmt_id=commID)
-        comm_obj.delete()
-    # 删除新闻
-    news_obj = models.News.objects.get(news_id=News_id)
-    news_obj.delete()
+    return HttpResponse("删除成功")
 
 
 def get_user_comm(request):
