@@ -72,7 +72,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledges',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -123,7 +123,7 @@ class NewsOperator extends Component {
 
 
     Delect=(item)=>{
-        fetch('http://127.0.0.1:8000/news/NewsList/Delnews',{
+        fetch('http://127.0.0.1:8000/news/Delnews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -140,7 +140,7 @@ class NewsOperator extends Component {
                 })
 
 
-        fetch('http://127.0.0.1:8000/news/NewsList/proccess',{
+        fetch('http://127.0.0.1:8000/news/NewsList/process',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -159,7 +159,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledges',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -204,12 +204,12 @@ class NewsOperator extends Component {
 
     Update=()=>{
         if(block === "防疫进展"){
-            update.group = "proccess";
-            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
+            update.group = "process";
+            fetch('http://127.0.0.1:8000/news/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
-                body:JSON.stringify(update.group),
+                body:JSON.stringify(update),
                 header:{
                     'User':this.state.result,
                 }
@@ -221,12 +221,12 @@ class NewsOperator extends Component {
                     console.log(error);
                 })
         }else if(block === "防疫知识"){
-            update.group = "knowledge";
-            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
+            update.group = "knowledges";
+            fetch('http://127.0.0.1:8000/news/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
-                body:JSON.stringify(update.group),
+                body:JSON.stringify(update),
                 header:{
                     'User':this.state.result,
                 }
@@ -239,11 +239,11 @@ class NewsOperator extends Component {
                 })
         }else if(block === "最新情况"){
             update.group = "newest";
-            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/news/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
-                body:JSON.stringify(update.group),
+                body:JSON.stringify(update),
                 header:{
                     'User':this.state.result,
                 }
@@ -256,7 +256,7 @@ class NewsOperator extends Component {
                 })
         }
 
-        fetch('http://127.0.0.1:8000/news/NewsList/proccess',{
+        fetch('http://127.0.0.1:8000/news/NewsList/process',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -275,7 +275,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledges',{
             method:"get",
             mode:"cors",
             credentials:"include",

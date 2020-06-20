@@ -113,7 +113,7 @@ def publish_news(request):
 # 发表评论
 
 
-#@decorators.login_required
+@decorators.login_required
 def publish_comment(request):
     # 获取内容
     try:
