@@ -4,6 +4,7 @@ import '../../asserts/css/NewMain.css';
 import '../../asserts/css/CreateNews.css'
 import '../../asserts/css/News.css'
 import Navi from '../../components/Menu/Navigator';
+import cookie from 'react-cookies'
 import Logo from '../../asserts/logo.jpg';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
@@ -11,8 +12,9 @@ const { TextArea } = Input;
 
 var update = {
     title:"",
-    num:"",
     text:"",
+    group:"",
+    num:"",
 };
 
 var block = "";
@@ -22,26 +24,36 @@ class NewsOperator extends Component {
         super(props);
         this.state = {
             data_1:[
-                {title:'新闻一',num:1,text:''},
-                {title:'新闻二',num:2,text:''},
-                {title:'新闻三',num:3,text:''},
             ],
             data_2:[
-                {title:'新闻一',num:1,text:''},
-                {title:'新闻二',num:2,text:''},
-                {title:'新闻三',num:3,text:''},
             ],
             data_3:[
-                {title:'新闻一',num:1,text:''},
-                {title:'新闻二',num:2,text:''},
-                {title:'新闻三',num:3,text:''},
             ],
+            result:"",
         };
     }
 
     componentDidMount=()=>{
+        fetch("https://127.0.0.1:8000/"+"user/profile/",{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            headers:{
+                'sessionid':cookie.loadAll().sessionid,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                console.log(result);
+                this.setState({
+                    result:result,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
 
-        fetch('https://127.0.0.1:8000/NewsList/proccess/',{
+        fetch('https://127.0.0.1:8000/NewsList/proccess',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -60,7 +72,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('https://127.0.0.1:8000/NewsList/knowledge/',{
+        fetch('https://127.0.0.1:8000/NewsList/knowledge',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -79,7 +91,7 @@ class NewsOperator extends Component {
             })
 
         
-        fetch('https://127.0.0.1:8000/NewsList/newest/',{
+        fetch('https://127.0.0.1:8000/NewsList/newest',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -110,45 +122,27 @@ class NewsOperator extends Component {
     }
 
 
-    Delect=(block,num)=>{
-        if(block === 1){
-            var New = this.state.data_1;
-
-            New.splice(num - 1,1);
-
-            for(var i = num - 1;i<New.length;i++){
-                New[i].num--;
-            }
-
-            this.setState({
-                data_1:New,
+    Delect=(num)=>{
+        fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+                method:"post",
+                mode:"cors",
+                credentials:"include",
+                body:JSON.stringify(num),
+                header:{
+                    'User':this.state.result,
+                }
             })
-        }else if(block === 2){
-            var New = this.state.data_2;
-
-            New.splice(num-1,1);
-
-            for(var i = num - 1;i<New.length;i++){
-                New[i].num--;
-            }
-
-            this.setState({
-                data_2:New,
-            })
-        }else{
-            var New = this.state.data_3;
-
-            New.splice(num-1,1);
-
-            for(var i = num - 1;i<New.length;i++){
-                New[i].num--;
-            }
-
-            this.setState({
-                data_3:New,
-            })
-        }
-
+                .then(res => res.json())
+                .then((result)=>{
+                    this.setState({
+                        data_1:result.news_1,
+                        data_2:result.news_2,
+                        data_3:result.news_3,
+                    })
+                },
+                (error)=>{
+                    console.log(error);
+                })
     }
 
     loadBlock=(e)=>{
@@ -158,26 +152,71 @@ class NewsOperator extends Component {
 
     Update=()=>{
         if(block === "防疫进展"){
-            update.num = this.state.data_1.length + 1;
-            var data = this.state.data_1;
-            data[this.state.data_1.length] = update;
-            this.setState({
-                data_1:data,
+            update.group = "proccess";
+            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+                method:"post",
+                mode:"cors",
+                credentials:"include",
+                body:JSON.stringify(update.group),
+                header:{
+                    'User':this.state.result,
+                }
             })
+                .then(res => res.json())
+                .then((result)=>{
+                    this.setState({
+                        data_1:result.news_1,
+                        data_2:result.news_2,
+                        data_3:result.news_3,
+                    })
+                },
+                (error)=>{
+                    console.log(error);
+                })
         }else if(block === "防疫知识"){
-            update.num = this.state.data_2.length + 1;
-            console.log(update);
-            this.setState({
-                data_2:[...this.state.data_2,update],
+            update.group = "knowledge";
+            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+                method:"post",
+                mode:"cors",
+                credentials:"include",
+                body:JSON.stringify(update.group),
+                header:{
+                    'User':this.state.result,
+                }
             })
-            console.log(this.state.data_2);
+                .then(res => res.json())
+                .then((result)=>{
+                    this.setState({
+                        data_1:result.news_1,
+                        data_2:result.news_2,
+                        data_3:result.news_3,
+                    })
+                },
+                (error)=>{
+                    console.log(error);
+                })
         }else if(block === "最新情况"){
-            update.num = this.state.data_3.length + 1;
-            console.log(update);
-            this.setState({
-                data_3:[...this.state.data_3,update],
+            update.group = "newest";
+            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+                method:"post",
+                mode:"cors",
+                credentials:"include",
+                body:JSON.stringify(update.group),
+                header:{
+                    'User':this.state.result,
+                }
             })
-            console.log(this.state.data_3);
+                .then(res => res.json())
+                .then((result)=>{
+                    this.setState({
+                        data_1:result.news_1,
+                        data_2:result.news_2,
+                        data_3:result.news_3,
+                    })
+                },
+                (error)=>{
+                    console.log(error);
+                })
         }
     }
 
@@ -202,7 +241,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(1,item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>
@@ -217,7 +256,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(2,item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>
@@ -232,7 +271,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(3,item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>

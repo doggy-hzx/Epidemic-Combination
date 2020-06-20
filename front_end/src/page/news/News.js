@@ -35,7 +35,7 @@ class News extends Component {
             .then(res => res.json())
             .then((result)=>{
                 this.setState({
-                    data_1:result.news,
+                    news:result.news,
                 })
             },
             (error)=>{
