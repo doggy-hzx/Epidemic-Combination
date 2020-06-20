@@ -18,19 +18,13 @@ class NewsMain extends Component {
         super(props);
         this.state = {
             data_1:[
-                {title:'新闻一'},
-                {title:'新闻二'},
-                {title:'新闻三'},
+
             ],
             data_2:[
-                {title:'新闻一'},
-                {title:'新闻二'},
-                {title:'新闻三'},
+
             ],
             data_3:[
-                {title:'新闻一'},
-                {title:'新闻二'},
-                {title:'新闻三'},
+
             ],
             flag:0,
             result:"",
@@ -58,7 +52,7 @@ class NewsMain extends Component {
                 console.log(error);
             })
 
-        fetch('https://127.0.0.1:8000/NewsList/proccess/',{
+        fetch('http://127.0.0.1:8000/news/NewsList/process',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -77,7 +71,7 @@ class NewsMain extends Component {
             })
 
 
-        fetch('https://127.0.0.1:8000/NewsList/knowledge/',{
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledges',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -96,7 +90,7 @@ class NewsMain extends Component {
             })
 
         
-        fetch('https://127.0.0.1:8000/NewsList/newest/',{
+        fetch('http://127.0.0.1:8000/news/NewsList/newest',{
             method:"get",
             mode:"cors",
             credentials:"include",

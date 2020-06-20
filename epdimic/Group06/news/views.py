@@ -261,8 +261,8 @@ def news_list(request, ori_type):
         news_item['text'] = news.news_id.news_url
 
         newsinfo_list.append(news_item)
-    print(Allnews)
-    content = json.dumps(newsinfo_list)
+    news={'news':newsinfo_list}
+    content = json.dumps(news)
     return HttpResponse(content, content_type="application/json")
 
 

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'Group06.users',
     'Group06.news',
     'Group07',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'epdimic.urls'
@@ -178,3 +180,34 @@ DEFAULT_SUPERUSER_INFO = {
     'real_name': 'superUser',
     'citizen_id': '500000000000000000'
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_WHITELIST = ()
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+CORS_ALLOW_HEADERS = (
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+)
+# 跨域请求时，是否运行携带cookie，默认为False
+CORS_ALLOW_CREDENTIALS = True
+# 允许所有主机执行跨站点请求，默认为False
+# 如果没设置该参数，则必须设置白名单，运行部分白名单的主机才能执行跨站点请求
+CORS_ORIGIN_ALLOW_ALL = True
