@@ -37,7 +37,7 @@ class User extends Component {
             .then(res => res.json())
             .then((result)=>{
                 console.log(result.groups[0]);
-                if(result.groups[0] === "admin_1"||result.groups[0] === "admin_2"||result.groups[0] === "admin_3"||result.groups[0] === "admin_4"){
+                if(result.groups[0] === "admin_1"){
                     this.setState({
                         flag:5,
                     })
