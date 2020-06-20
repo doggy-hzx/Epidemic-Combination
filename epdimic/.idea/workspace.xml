@@ -26,10 +26,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6442fa7-4476-42c0-82dc-37e7fc8f1ebc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/page/Users/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/page/Users/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/page/news/ImgFlow.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front_end/src/page/news/NewsMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/page/news/NewsMain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Group06/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Group06/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,15 +74,14 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="epdimic" type="Python.DjangoServer" factoryName="Django server">
+    <configuration name="Unnamed" type="Python.DjangoServer" factoryName="Django server" nameIsGenerated="true">
       <module name="epdimic" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="epdimic.settings" />
       </envs>
-      <option name="SDK_HOME" value="E:\vs\疫情管理系统\汇总\doggy\EpidemicInfoMgr_Backend-master\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\doggy\Documents\GitHub\Epidemic-Combination\epdimic\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -116,7 +112,12 @@
       <workItem from="1592579991474" duration="666000" />
       <workItem from="1592628739160" duration="1219000" />
       <workItem from="1592638887294" duration="271000" />
-      <workItem from="1592639174895" duration="18000" />
+      <workItem from="1592639174895" duration="677000" />
+      <workItem from="1592640519436" duration="399000" />
+      <workItem from="1592640934371" duration="210000" />
+      <workItem from="1592641156890" duration="114000" />
+      <workItem from="1592641506241" duration="169000" />
+      <workItem from="1592641845555" duration="809000" />
     </task>
     <servers />
   </component>
@@ -136,44 +137,49 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592639121433">
+    <state x="2571" y="294" key="#Notifications" timestamp="1592642248046">
+      <screen x="1920" y="0" width="1536" height="864" />
+    </state>
+    <state x="2571" y="294" key="#Notifications/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642248046" />
+    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592642186835">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state x="140" y="91" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1368.872@0.0.1368.872" timestamp="1592383098868" />
-    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639121433" />
+    <state x="2077" y="90" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642186835" />
     <state x="362" y="20" key="#epdimic" timestamp="1592386935749">
       <screen x="0" y="0" width="1368" height="872" />
     </state>
     <state x="362" y="20" key="#epdimic/0.0.1368.872@0.0.1368.872" timestamp="1592386935749" />
-    <state x="523" y="186" width="479" height="503" key="EnvironmentVariablesDialog" timestamp="1592383190676">
-      <screen x="0" y="0" width="1368" height="872" />
+    <state x="2507" y="184" width="479" height="503" key="EnvironmentVariablesDialog" timestamp="1592642181600">
+      <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state x="523" y="186" width="479" height="503" key="EnvironmentVariablesDialog/0.0.1368.872@0.0.1368.872" timestamp="1592383190676" />
-    <state x="2419" y="191" key="FileChooserDialogImpl" timestamp="1592639155119">
+    <state x="2507" y="184" key="EnvironmentVariablesDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642181600" />
+    <state x="2419" y="191" key="FileChooserDialogImpl" timestamp="1592641267717">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state x="444" y="193" key="FileChooserDialogImpl/0.0.1368.872@0.0.1368.872" timestamp="1592383203663" />
-    <state x="2419" y="191" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639155119" />
-    <state width="1493" height="228" key="GridCell.Tab.0.bottom" timestamp="1592639158102">
+    <state x="2419" y="191" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641267717" />
+    <state width="1493" height="228" key="GridCell.Tab.0.bottom" timestamp="1592642655021">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state width="1326" height="227" key="GridCell.Tab.0.bottom/0.0.1368.872@0.0.1368.872" timestamp="1592387320554" />
-    <state width="1493" height="228" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639158102" />
-    <state width="1493" height="228" key="GridCell.Tab.0.center" timestamp="1592639158102">
+    <state width="1493" height="228" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642655021" />
+    <state width="1493" height="228" key="GridCell.Tab.0.center" timestamp="1592642655021">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state width="1326" height="227" key="GridCell.Tab.0.center/0.0.1368.872@0.0.1368.872" timestamp="1592387320553" />
-    <state width="1493" height="228" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639158102" />
-    <state width="1493" height="228" key="GridCell.Tab.0.left" timestamp="1592639158102">
+    <state width="1493" height="228" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642655021" />
+    <state width="1493" height="228" key="GridCell.Tab.0.left" timestamp="1592642655021">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state width="1326" height="227" key="GridCell.Tab.0.left/0.0.1368.872@0.0.1368.872" timestamp="1592387320553" />
-    <state width="1493" height="228" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639158102" />
-    <state width="1493" height="228" key="GridCell.Tab.0.right" timestamp="1592639158102">
+    <state width="1493" height="228" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642655021" />
+    <state width="1493" height="228" key="GridCell.Tab.0.right" timestamp="1592642655021">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
     <state width="1326" height="227" key="GridCell.Tab.0.right/0.0.1368.872@0.0.1368.872" timestamp="1592387320553" />
-    <state width="1493" height="228" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592639158102" />
+    <state width="1493" height="228" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592642655021" />
     <state x="1966" y="54" key="SettingsEditor" timestamp="1592639191242">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>

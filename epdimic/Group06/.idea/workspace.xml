@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e59aedf-20d4-4a1e-8c10-1def97e4eb8a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/epdimic.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml~1b2de0239b6aba4f709d7f822f3d854fe720b9e4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Group06.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Group06.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front_end/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../front_end/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front_end/src/asserts/css/Info.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../front_end/src/asserts/css/Info.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front_end/src/asserts/css/NewMain.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../front_end/src/asserts/css/NewMain.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front_end/src/page/Users/LoginIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../front_end/src/page/Users/LoginIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../front_end/src/page/news/NewsMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../front_end/src/page/news/NewsMain.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +37,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
-        <env name="DJANGO_SETTINGS_MODULE" value="venv" />
+        <env name="DJANGO_SETTINGS_MODULE" value="epdimic.settings" />
       </envs>
       <option name="SDK_HOME" value="E:\vs\疫情管理系统\汇总\doggy\EpidemicInfoMgr_Backend-master\venv\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -106,6 +94,7 @@
       <workItem from="1592567671038" duration="395000" />
       <workItem from="1592568214661" duration="8000" />
       <workItem from="1592568361922" duration="86000" />
+      <workItem from="1592641272755" duration="231000" />
     </task>
     <servers />
   </component>
@@ -113,37 +102,41 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2385" y="14" key="#Unnamed" timestamp="1592568041263">
+    <state x="2385" y="14" key="#Unnamed" timestamp="1592641392257">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state x="2385" y="14" key="#Unnamed/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568041263" />
-    <state x="2143" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592567888422">
+    <state x="2385" y="14" key="#Unnamed/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641392257" />
+    <state x="2143" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592641318194">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state x="2143" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592567888422" />
-    <state x="2469" y="171" key="FileChooserDialogImpl" timestamp="1592568446970">
+    <state x="2143" y="87" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641318194" />
+    <state x="2546" y="179" key="EnvironmentVariablesDialog" timestamp="1592641295667">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state x="2469" y="171" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568446970" />
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1592568067631">
+    <state x="2546" y="179" key="EnvironmentVariablesDialog/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641295667" />
+    <state x="2469" y="171" key="FileChooserDialogImpl" timestamp="1592641502447">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568067631" />
-    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1592568067631">
+    <state x="2469" y="171" key="FileChooserDialogImpl/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641502447" />
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom" timestamp="1592641504607">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568067631" />
-    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1592568067631">
+    <state width="1493" height="223" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641504607" />
+    <state width="1493" height="223" key="GridCell.Tab.0.center" timestamp="1592641504606">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568067631" />
-    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1592568067631">
+    <state width="1493" height="223" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641504606" />
+    <state width="1493" height="223" key="GridCell.Tab.0.left" timestamp="1592641504606">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568067631" />
-    <state x="2190" y="76" key="SettingsEditor" timestamp="1592568039895">
+    <state width="1493" height="223" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641504606" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right" timestamp="1592641504606">
       <screen x="1920" y="0" width="1536" height="864" />
     </state>
-    <state x="2190" y="76" key="SettingsEditor/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592568039895" />
+    <state width="1493" height="223" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641504606" />
+    <state x="2190" y="76" key="SettingsEditor" timestamp="1592641391084">
+      <screen x="1920" y="0" width="1536" height="864" />
+    </state>
+    <state x="2190" y="76" key="SettingsEditor/0.0.1920.1080/1920.0.1536.864@1920.0.1536.864" timestamp="1592641391084" />
   </component>
 </project>

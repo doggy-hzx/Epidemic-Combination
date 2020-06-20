@@ -43,9 +43,6 @@ class Comment extends Component {
         if(this.state.flag === 4){
             return (
                 <div>
-                    <div className = "Application">
-                        123
-                    </div>
                 </div>
             );
         }else if(this.state.flag === 1){

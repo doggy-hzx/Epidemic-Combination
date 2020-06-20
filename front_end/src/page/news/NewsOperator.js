@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { List, Typography, Divider, Tabs, Button,Input} from 'antd';
 import '../../asserts/css/NewMain.css';
 import '../../asserts/css/CreateNews.css'
+import '../../asserts/css/News.css'
+import Navi from '../../components/Menu/Navigator';
+import Logo from '../../asserts/logo.jpg';
 const { TabPane } = Tabs;
 const { TextArea } = Input;
 
@@ -34,6 +37,66 @@ class NewsOperator extends Component {
                 {title:'新闻三',num:3,text:''},
             ],
         };
+    }
+
+    componentDidMount=()=>{
+
+        fetch('https://127.0.0.1:8000/NewsList/proccess/',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_1:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+
+        fetch('https://127.0.0.1:8000/NewsList/knowledge/',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_2:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+        
+        fetch('https://127.0.0.1:8000/NewsList/newest/',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_3:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
     }
 
 
@@ -96,11 +159,25 @@ class NewsOperator extends Component {
     Update=()=>{
         if(block === "防疫进展"){
             update.num = this.state.data_1.length + 1;
+            var data = this.state.data_1;
+            data[this.state.data_1.length] = update;
+            this.setState({
+                data_1:data,
+            })
+        }else if(block === "防疫知识"){
+            update.num = this.state.data_2.length + 1;
             console.log(update);
             this.setState({
-                data_1:[...this.state.data_1,update],
+                data_2:[...this.state.data_2,update],
             })
-            console.log(this.state.data_1);
+            console.log(this.state.data_2);
+        }else if(block === "最新情况"){
+            update.num = this.state.data_3.length + 1;
+            console.log(update);
+            this.setState({
+                data_3:[...this.state.data_3,update],
+            })
+            console.log(this.state.data_3);
         }
     }
 
@@ -108,6 +185,11 @@ class NewsOperator extends Component {
     render() {
         return (
             <div>
+                <div className = "header">
+                        <img class = "logo" src = {Logo} alt="校徽" />
+                        <div class ="title"> 疫情管控系统 </div>
+                        <div style = {{alignSelf:'flex-end'}}> <Navi /> </div>
+                </div>
                 <div className = "NewMain">
                     <Tabs defaultActiveKey="1" id = "tabs">
                         <TabPane tab = "防疫进展" key = "1">
