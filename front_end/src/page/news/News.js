@@ -30,7 +30,7 @@ class News extends Component {
 
     componentDidMount=()=>{
 
-        fetch("https://127.0.0.1:8000/"+"user/profile/",{
+        fetch("http://127.0.0.1:8000/"+"user/profile/",{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -49,7 +49,7 @@ class News extends Component {
                 console.log(error);
             })
 
-        fetch('https://127.0.0.1:8000/NewsList/',{
+        fetch('http://127.0.0.1:8000/news/Newsdetails',{
             method:"post",
             body:JSON.stringify(this.props.location.state),
             mode:"cors",
@@ -79,7 +79,7 @@ class News extends Component {
 
     addComment=()=>{
         data.user = this.state.resultUser.username;
-        fetch('https://127.0.0.1:8000/NewsList/',{
+        fetch('http://127.0.0.1:8000/NewsList/',{
             method:"post",
             body:JSON.stringify(data),
             mode:"cors",

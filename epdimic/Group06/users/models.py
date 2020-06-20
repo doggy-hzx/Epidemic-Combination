@@ -1,6 +1,7 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager ,Group
 from django.db import models
 from Group06 import config
+
 
 
 # 自定义的用户管理类
@@ -64,3 +65,4 @@ class UserInfo(AbstractUser):
     citizen_id = models.CharField(max_length=18)
 
     objects = MyUserManager()
+

@@ -49,7 +49,7 @@ def OnGotoRegisterPage(request: HttpRequest):
 # 前端的注册表单提交时
 def OnRegisterFormSubmit(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     data = json.loads(request.body)
 
     username = data['username']
@@ -116,19 +116,23 @@ def OnRegisterFormSubmit(request: HttpRequest):
 # 注册时邮箱验证的链接被点击时
 def OnRegisterMailConfirmed(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     msg = ""
     data = json.loads(request.body)
     token = data['token']
-    user: models.UserInfo = ParseVerifyEmailURL(token)
+    user, appendix = ParseVerifyEmailURL(token)
     if user is None:
         msg = "这个链接不合法或已经失效，请重新进行邮箱验证"
         return StateJsonRes(False, msg)
     else:
-        user.is_active = True
-        user.save()
-        msg = "您的账号已成功激活！"
-        return StateJsonRes(True, msg)
+        if user.is_active == False:
+            user.is_active = True
+            user.save()
+            msg = "您的账号已成功激活！"
+            return StateJsonRes(True, msg)
+        else:
+            msg = "您的账号已经是可用状态，无需激活！"
+            return StateJsonRes(True, msg)
 
 
 # 点击登录时 跳转到登录页面
@@ -139,7 +143,7 @@ def OnGotoLoginPage(request: HttpRequest):
 # 点击登录按钮时，处理登录表单
 def OnLoginRequest(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     msg = ""
     data = json.loads(request.body)
     username = data['username']
@@ -167,25 +171,41 @@ def OnLoginRequest(request: HttpRequest):
 @group_required('superAdmin')
 def OnUserAuthorizationRequest(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     msg = ""
     if request.method != "POST":
         msg = "错误的请求类型"
         return StateJsonRes(False, msg)
+    FailNumber = 0
+    i = 0
     data = json.loads(request.body)
-    targetUserName = data['targetUser']
-    groupName = data['targetGroup']
-    targetUser = models.UserInfo.objects.get(username=targetUserName)
-    if (groupName != "common") & (groupName != "admin_1") & (groupName != "admin_2") & (groupName != "admin_3") & (groupName != "admin_4") &(groupName != "admin_5"):
-        msg = "目标用户组不存在"
-        return StateJsonRes(False, msg)
-    if targetUser is None:
-        msg = "目标用户不存在"
-        return StateJsonRes(False, msg)
+    for groupName in data.keys():
+        if groupName == "flag":
+            continue
+        i += 1
+        targetUserName = data[groupName]
+        if targetUserName == "":
+            msg += "%d. %s组 未提供目标用户 已跳过;\n" % (i, groupName)
+            continue
+        if (groupName != "common") & (groupName != "admin_1") & (groupName != "admin_2") & (groupName != "admin_3") & (
+                groupName != "admin_4") & (groupName != "admin_5"):
+            msg += "%d. 目标用户组 %s 不存在;\n" % (i, groupName)
+            FailNumber+=1
+            continue
+            # return StateJsonRes(False, msg)
+        targetUser = models.UserInfo.objects.get(username=targetUserName)
+        if targetUser is None:
+            msg += "%d. 目标用%s 户不存在;\n" % (i, targetUserName)
+            FailNumber += 1
+            continue
+            # return StateJsonRes(False, msg)
+        AuthorizeUser(targetUser, groupName)
+        msg += "%d. 成功将用户%s 增加%s 分组;\n" % (i, targetUserName, groupName)
 
-    AuthorizeUser(targetUser, groupName)
-    msg = "成功将用户%s 增加%s 分组" % (targetUserName, groupName)
-    return StateJsonRes(True, msg)
+    if FailNumber < i:
+        return StateJsonRes(True, msg)
+    else:
+        return StateJsonRes(False, msg)
 
 
 # 为用户授权
@@ -220,7 +240,7 @@ def AuthorizeUserOnName(username, group_name):
 def OnGotoUserProfile(request: HttpRequest):
 
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
 
 
     msg = ""
@@ -253,7 +273,7 @@ def OnGotoUserProfile(request: HttpRequest):
 @login_required
 def OnModifyProfilePosted(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     msg = ""
     if request.method != 'POST':
         msg = "非法的请求类型"
@@ -261,7 +281,7 @@ def OnModifyProfilePosted(request: HttpRequest):
     user = None
     # try:
     #     username = request.user.username
-    user = GetUserFromRequestSession(request)
+    user : models.UserInfo = GetUserFromRequestSession(request)
     if user is None:
         msg = "用户不存在"
         return StateJsonRes(False, msg)
@@ -341,7 +361,7 @@ def SendAuthenticationMail(user: models.UserInfo, mode, expireTime,appendix=None
 @login_required
 def OnChangePasswordRequest(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     msg = ""
     data = json.loads(request.body)
     newPass = data['new_password']
@@ -362,7 +382,7 @@ def OnChangePasswordRequest(request: HttpRequest):
 # 点击邮件验证以后
 def OnChangePassMailConfirmed(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     data = json.loads(request.body)
     token = data['token']
     user, appendix = ParseVerifyEmailURL(token)
@@ -375,7 +395,7 @@ def OnChangePassMailConfirmed(request: HttpRequest):
         # new_token = GenerateVerifyTokenURL(user, 1200)
         if new_pass is None:
             msg = "未获取到密码信息"
-            return StateJsonRes(False,msg)
+            return StateJsonRes(False, msg)
         try:
             user.set_password(new_pass)
             user.save()
@@ -389,6 +409,11 @@ def OnChangePassMailConfirmed(request: HttpRequest):
         # return StateJsonRes(True, msg, token=new_token)
         # return redirect('http://127.0.0.1:8000/user/profile/changepass/set_new/' + new_token, request=request)
 
+
+@login_required
+@group_required('admin_1', 'superAdmin')
+def AuthTest(request: HttpRequest):
+    return HttpResponse("通过权限检测，访问成功")
 
 # 点了确认修改 实际去保存新的密码 并让用户重新登录
 # def OnConfirmNewPassword(request: HttpRequest):
@@ -427,7 +452,7 @@ def OnChangePassMailConfirmed(request: HttpRequest):
 @login_required
 def OnLogoutRequest(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     user = GetUserFromRequestSession(request)
     # if user.is_authenticated:
     #     #user.is_authenticated = False
@@ -441,21 +466,22 @@ def CreateSuperUser(request: HttpRequest):
 
 def OnPermissionDenied(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     return HttpResponseForbidden("您无权访问该页面")
 
 
 # 封禁用户
-@group_required('superAdmin', 'admin-1', 'admin-2', 'admin-3', 'admin-4')
+@group_required('superAdmin', 'admin_1', 'admin_2', 'admin_3', 'admin_4', 'admin_5')
 @login_required
 def OnDeactivateUserRequest(request: HttpRequest):
     if showDebugLogs:
-        print(request.user, request.body)
+        print(GetUserFromRequestSession(request).username, request.body)
     data = json.loads(request.body)
     targetUser = data['targetUser']
     return StateJsonRes(True, "")
 
 # 取消用户的某个分组
+
 
 
 def StateJsonRes(state: bool, msg: str, session_id=None, token=None):

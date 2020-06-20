@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group, User
 from django.db.models import Avg, Count, Max, Min, Sum
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render
 # from rest_framework.views import APIView
-from rest_framework.response import Response
+#from rest_framework.response import Response
 from . import models
 from Group06.users import decorators
 from Group06.users import models as usermodels
