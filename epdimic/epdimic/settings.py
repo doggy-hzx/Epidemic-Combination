@@ -207,7 +207,9 @@ CORS_ALLOW_HEADERS = (
 
     'X-Custom-Header',
 
-    'sessionid'
+    'sessionid',
+
+    'User',
 
 )
 

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3065d5ea-88e0-4fa7-8c0e-65938243b105" name="Default Changelist" comment="" />
+    <list default="true" id="3065d5ea-88e0-4fa7-8c0e-65938243b105" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/epdimic/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/epdimic/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/page/news/News.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/page/news/News.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front_end/src/page/news/NewsOperator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front_end/src/page/news/NewsOperator.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +76,7 @@
       <updated>1592567742615</updated>
       <workItem from="1592567745498" duration="2615000" />
       <workItem from="1592660572266" duration="814000" />
+      <workItem from="1592664307100" duration="1138000" />
     </task>
     <servers />
   </component>

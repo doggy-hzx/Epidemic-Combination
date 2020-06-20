@@ -123,7 +123,7 @@ class NewsOperator extends Component {
 
 
     Delect=(num)=>{
-        fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+        fetch('https://127.0.0.1:8000/NewsList/Delnews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",

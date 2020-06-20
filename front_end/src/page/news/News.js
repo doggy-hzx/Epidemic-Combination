@@ -49,13 +49,13 @@ class News extends Component {
                 console.log(error);
             })
 
-        fetch('http://127.0.0.1:8000/news/Newsdetails',{
+        fetch("http://127.0.0.1:8000/news/Newsdetails",{
             method:"post",
             body:JSON.stringify(this.props.location.state),
             mode:"cors",
             credentials:"include",
             headers:{
-                'User':this.state.result,
+                'User':this.state.resultUser,
             }
         })
             .then(res => res.json())
