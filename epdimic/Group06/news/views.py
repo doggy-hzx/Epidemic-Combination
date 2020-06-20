@@ -101,14 +101,15 @@ def publish_news(request):
 
 
 @decorators.login_required
-def publish_comment(request, newsid):
+def publish_comment(request):
     # 获取内容
     try:
         Comm = json.loads(request.body)
 
-        UserName = Comm['username']
+        UserName = Comm['user']
         User_id = usermodels.UserInfo.objects.get(username=UserName)
-        Cmt_content = Comm['comment']
+        Cmt_content = Comm['com']
+        newsid=Comm['num']
     except usermodels.UserInfo.DoesNotExist:
         return HttpResponse("发布失败")  # 发布失败
 
@@ -151,8 +152,8 @@ def publish_comment(request, newsid):
 
 def view_news(request):
     # 获取新闻id和评论id
-    #newsid = json.load(request.body)
-    newsid=2
+    newsobj = json.loads(request.body)
+    newsid=newsobj['num']
     cmtlist = []
     try:
         cmt_gets = models.NewsComments.objects.filter(news_id=newsid)
@@ -165,11 +166,10 @@ def view_news(request):
         cmtinfo = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
         if cmtinfo.is_reliable == 3:
             cmt_item = {}
-            cmt_item['user'] = str(cmtinfo.cmt_gen_time)
             cmt_item['com'] = cmtinfo.cmt_content
 
-            rela=models.PublishComments.objects.get(cmt_id=cmtid)
-            cmt_item['user']=rela.user_id.username
+            rela = models.PublishComments.objects.get(cmt_id=cmtid)
+            cmt_item['title'] = rela.user_id.username
 
             cmtlist.append(cmt_item)
 
