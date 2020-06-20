@@ -119,10 +119,10 @@ def publish_comment(request):
             return HttpResponse("发布失败，评论包含非法内容")
 
     # 长度检查
-    if Cmt_content.length < 10:
-        return HttpResponse("内容过短，请重新输入")
-    if Cmt_content.length > 180:
-        return HttpResponse("内容过长，请重新输入")
+    #if Cmt_content.length < 10:
+        #return HttpResponse("内容过短，请重新输入")
+    #if Cmt_content.length > 180:
+        #return HttpResponse("内容过长，请重新输入")
 
     Comment_id = models.Comment.objects.aggregate(Max('cmt_id'))[
         'cmt_id__max']+1

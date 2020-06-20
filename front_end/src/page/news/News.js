@@ -80,13 +80,14 @@ class News extends Component {
     addComment=()=>{
         data.user = this.state.resultUser.username;
         data.num = this.props.location.state.num;
-        fetch('http://127.0.0.1:8000/Newscomment',{
+        fetch('http://127.0.0.1:8000/news/Newscomment',{
             method:"post",
             body:JSON.stringify(data),
             mode:"cors",
             credentials:"include",
             headers:{
                 'User':this.state.result,
+                'sessionid':cookie.loadAll().sessionid,
             }
         })
             .then(res => res.json())
