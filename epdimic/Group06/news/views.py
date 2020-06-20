@@ -149,22 +149,28 @@ def publish_comment(request, newsid):
 # 查看新闻
 
 
-def view_news(request, newsid):
+def view_news(request):
     # 获取新闻id和评论id
+    #newsid = json.load(request.body)
+    newsid=2
     cmtlist = []
     try:
-        cmt_query = models.NewsComments.objects.filter(news_id=newsid)
+        cmt_gets = models.NewsComments.objects.filter(news_id=newsid)
         news_cont = models.News.objects.get(news_id=newsid)
     except:
         HttpResponse("不存在该新闻")
 
-    for cmt in cmt_query:
+    for cmt in cmt_gets:
         cmtid = cmt.cmt_id.cmt_id  # 找到评论id
-        cmt_info = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
+        cmtinfo = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
         if cmtinfo.is_reliable == 3:
             cmt_item = {}
-            cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
-            cmt_item['cmt_content'] = cmtinfo.cmt_content
+            cmt_item['user'] = str(cmtinfo.cmt_gen_time)
+            cmt_item['com'] = cmtinfo.cmt_content
+
+            rela=models.PublishComments.objects.get(cmt_id=cmtid)
+            cmt_item['user']=rela.user_id.username
+
             cmtlist.append(cmt_item)
 
     newsPage = {'cmts': cmtlist, 'news': news_cont.news_url,
@@ -340,7 +346,7 @@ def del_news(request):
     for item in items_newscomm:
 
         commID = item.cmt_id.cmt_id
-        comm_obj = models.Comments.objects.get(cmt_id=commID)
+        comm_obj = models.Comment.objects.get(cmt_id=commID)
         comm_obj.delete()
     # 删除新闻
     news_obj = models.News.objects.get(news_id=News_id)
@@ -360,8 +366,8 @@ def get_user_comm(request):
 
     for cmt in Comms:
         cmtid = cmt.cmt_id.cmt_id  # 找到评论id
-        cmt_info = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
-        if cmt_info.is_reliable == 3:
+        cmtinfo = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
+        if cmtinfo.is_reliable == 3:
             cmt_item = {}
             cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
             cmt_item['cmt_content'] = cmtinfo.cmt_content
