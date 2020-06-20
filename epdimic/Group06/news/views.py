@@ -156,7 +156,7 @@ def publish_comment(request):
         Pub_cmt_id=Pub_cmt_id+1
 
     comm_user = models.PublishComments.objects.create(
-        pub_cmt_id=Pub_cmt_id, user_id=User_obj, cmt_id=comm_obj)
+        pub_cmt_id=Pub_cmt_id, user_id=usermodels.UserInfo.objects.get(id=User_id), cmt_id=comm_obj)
 
     return HttpResponse("评论成功")
 
