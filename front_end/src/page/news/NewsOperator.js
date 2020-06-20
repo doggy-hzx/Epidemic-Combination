@@ -53,7 +53,7 @@ class NewsOperator extends Component {
                 console.log(error);
             })
 
-        fetch('http://127.0.0.1:8000/NewsList/proccess',{
+        fetch('http://127.0.0.1:8000/news/NewsList/proccess',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -72,7 +72,7 @@ class NewsOperator extends Component {
             })
 
 
-        fetch('http://127.0.0.1:8000/NewsList/knowledge',{
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -91,7 +91,7 @@ class NewsOperator extends Component {
             })
 
         
-        fetch('http://127.0.0.1:8000/NewsList/newest',{
+        fetch('http://127.0.0.1:8000/news/NewsList/newest',{
             method:"get",
             mode:"cors",
             credentials:"include",
@@ -122,27 +122,79 @@ class NewsOperator extends Component {
     }
 
 
-    Delect=(num)=>{
-        fetch('http://127.0.0.1:8000/NewsList/Delnews',{
+    Delect=(item)=>{
+        fetch('http://127.0.0.1:8000/news/NewsList/Delnews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
-                body:JSON.stringify(num),
+                body:JSON.stringify(item),
                 header:{
                     'User':this.state.result,
                 }
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    this.setState({
-                        data_1:result.news_1,
-                        data_2:result.news_2,
-                        data_3:result.news_3,
-                    })
                 },
                 (error)=>{
                     console.log(error);
                 })
+
+
+        fetch('http://127.0.0.1:8000/news/NewsList/proccess',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_1:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_2:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+        
+        fetch('http://127.0.0.1:8000/news/NewsList/newest',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_3:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
     }
 
     loadBlock=(e)=>{
@@ -153,7 +205,7 @@ class NewsOperator extends Component {
     Update=()=>{
         if(block === "防疫进展"){
             update.group = "proccess";
-            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -164,18 +216,13 @@ class NewsOperator extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    this.setState({
-                        data_1:result.news_1,
-                        data_2:result.news_2,
-                        data_3:result.news_3,
-                    })
                 },
                 (error)=>{
                     console.log(error);
                 })
         }else if(block === "防疫知识"){
             update.group = "knowledge";
-            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -186,18 +233,13 @@ class NewsOperator extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    this.setState({
-                        data_1:result.news_1,
-                        data_2:result.news_2,
-                        data_3:result.news_3,
-                    })
                 },
                 (error)=>{
                     console.log(error);
                 })
         }else if(block === "最新情况"){
             update.group = "newest";
-            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/news/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -208,16 +250,69 @@ class NewsOperator extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
-                    this.setState({
-                        data_1:result.news_1,
-                        data_2:result.news_2,
-                        data_3:result.news_3,
-                    })
                 },
                 (error)=>{
                     console.log(error);
                 })
         }
+
+        fetch('http://127.0.0.1:8000/news/NewsList/proccess',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_1:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+
+        fetch('http://127.0.0.1:8000/news/NewsList/knowledge',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_2:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+        
+        fetch('http://127.0.0.1:8000/news/NewsList/newest',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_3:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+
     }
 
 
@@ -241,7 +336,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>
@@ -256,7 +351,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>
@@ -271,7 +366,7 @@ class NewsOperator extends Component {
                                         <List.Item.Meta
                                             title = {<a>{item.title}</a>}>
                                         </List.Item.Meta>
-                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item.num)}}>删除</Button>
+                                        <Button type = "primary" onClick = {(e)=>{this.Delect(item)}}>删除</Button>
                                     </List.Item>
                                 )}>
                             </List>
