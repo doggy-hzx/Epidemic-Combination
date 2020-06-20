@@ -43,9 +43,7 @@ class Comment extends Component {
         if(this.state.flag === 3){
             return (
                 <div>
-                    <div className = "Comment">
-                        123
-                    </div>
+                    
                 </div>
             );
         }else if(this.state.flag === 1){

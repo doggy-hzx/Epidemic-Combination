@@ -69,9 +69,45 @@ class NewsMain extends Component {
             .then(res => res.json())
             .then((result)=>{
                 this.setState({
-                    data_1:result.news1,
-                    data_2:result.news2,
-                    data_3:result.news3,
+                    data_1:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+
+        fetch('https://127.0.0.1:8000/NewsList/knowledge/',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_2:result.news,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
+        
+        fetch('https://127.0.0.1:8000/NewsList/newest/',{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            header:{
+                'User':this.state.result,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    data_3:result.news,
                 })
             },
             (error)=>{

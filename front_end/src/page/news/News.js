@@ -55,6 +55,7 @@ class News extends Component {
         this.setState({
             comment:[...this.state.comment,data],
         })
+        console.log(this.state.comment);
     }
 
     render() {
