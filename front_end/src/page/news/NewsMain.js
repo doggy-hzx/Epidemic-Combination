@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Logo from '../../asserts/logo.jpg';
 import Img from '../../asserts/image/logo.svg';
-import SildeShow from './ImgFlow';
 import '../../asserts/css/NewMain.css'
 import { List, Typography, Divider, Tabs} from 'antd';
 import { BrowserRouter as Router, Route ,Redirect } from 'react-router-dom';
@@ -141,11 +140,7 @@ class NewsMain extends Component {
                         </TabPane>
                     </Tabs>
                     <div id = "img">
-                        <SildeShow>
-                            <img src = {Logo}></img>
-                            <img src = {Img}></img>
-                            <img src = {Logo}></img>
-                        </SildeShow>
+                        <img src = {Logo}></img>
                     </div>
                 </div>
             );
