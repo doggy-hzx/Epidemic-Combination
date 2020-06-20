@@ -173,8 +173,9 @@ def view_news(request):
 
             cmtlist.append(cmt_item)
 
-    newsPage = {'cmts': cmtlist, 'news': news_cont.news_url,
+    newsPage = {'cmts': cmtlist, 'news': 'news_cont.news_url',
                 'title': news_cont.news_title}
+
     content = json.dumps(newsPage)
     return HttpResponse(content, content_type="application/json")
 
