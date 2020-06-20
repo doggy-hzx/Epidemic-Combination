@@ -5,6 +5,8 @@ import '../../asserts/css/News.css'
 import Navi from '../../components/Menu/Navigator';
 import Logo from '../../asserts/logo.jpg';
 import '../../components/Menu/Menu.css';
+import cookie from 'react-cookies'
+
 
 const { TextArea } = Input;
 
@@ -15,14 +17,38 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            news:"新闻",
-            comment:[
-            ],
-
+            result:{
+                news:"新闻",
+                cmts:[
+                    {user:"111",com:"11"}
+                ],
+                title:"标题"
+            },
+            resultUser:""
         };
     }
 
     componentDidMount=()=>{
+
+        fetch("https://127.0.0.1:8000/"+"user/profile/",{
+            method:"get",
+            mode:"cors",
+            credentials:"include",
+            headers:{
+                'sessionid':cookie.loadAll().sessionid,
+            }
+        })
+            .then(res => res.json())
+            .then((result)=>{
+                console.log(result);
+                this.setState({
+                    resultUser:result,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
+
         fetch('https://127.0.0.1:8000/NewsList/',{
             method:"post",
             body:JSON.stringify(this.props.location.state),
@@ -35,7 +61,7 @@ class News extends Component {
             .then(res => res.json())
             .then((result)=>{
                 this.setState({
-                    news:result,
+                    result:result,
                 })
             },
             (error)=>{
@@ -52,10 +78,25 @@ class News extends Component {
     }
 
     addComment=()=>{
-        this.setState({
-            comment:[...this.state.comment,data],
+        data.user = this.state.resultUser.username;
+        fetch('https://127.0.0.1:8000/NewsList/',{
+            method:"post",
+            body:JSON.stringify(data),
+            mode:"cors",
+            credentials:"include",
+            headers:{
+                'User':this.state.result,
+            }
         })
-        console.log(this.state.comment);
+            .then(res => res.json())
+            .then((result)=>{
+                this.setState({
+                    result:result,
+                })
+            },
+            (error)=>{
+                console.log(error);
+            })
     }
 
     render() {
@@ -67,12 +108,15 @@ class News extends Component {
                         <div style = {{alignSelf:'flex-end'}}> <Navi /> </div>
                 </div>
                 <div id = "new">
-                    {this.state.news}
+                    {this.state.result.title}
+                </div>
+                <div id = "new">
+                    {this.state.result.news}
                 </div>
                 <div id = "list">
                     <List
                         bordered
-                        dataSource = {this.state.comment}
+                        dataSource = {this.state.result.cmts}
                         renderItem = {item=>(
                             <List.Item>
                                 <List.Item.Meta
@@ -87,7 +131,6 @@ class News extends Component {
                     <TextArea rows={4} placeholder = "请输入评论" id = "cinput" onChange = {(e)=>{this.loadComment(e)}}>
                     </TextArea>
                     <Button type = "primary" onClick = {this.addComment}>提交</Button>
-                    <Button type = "primary" onClick = {this.update}>提</Button>
                 </div>
             </div>
         );
