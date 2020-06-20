@@ -9,7 +9,7 @@ import cookie from 'react-cookies'
 const { TextArea } = Input;
 
 var user="doggy";
-var data = {user:user,com:""};
+var data = {user:user,com:"",num:""};
 
 class News extends Component {
     constructor(props) {
@@ -79,7 +79,8 @@ class News extends Component {
 
     addComment=()=>{
         data.user = this.state.resultUser.username;
-        fetch('http://127.0.0.1:8000/NewsList/details/'+ this.state.result.num +'',{
+        data.num = this.props.location.state.num;
+        fetch('http://127.0.0.1:8000/Newsdetails/comment',{
             method:"post",
             body:JSON.stringify(data),
             mode:"cors",
