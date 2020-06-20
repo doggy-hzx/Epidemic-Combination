@@ -31,11 +31,11 @@ def publish_news(request):
         #     return HttpResponse("请使用疫情新闻发布子系统管理员账号登录")
 
         # 获取新闻数据
-        if True:#user_group == 'admin_1':  # 等一个接口用法
+        if True:  # user_group == 'admin_1':  # 等一个接口用法
             News_content = json.loads(request.body)
-            
-            UserName=News_content['username']
-            User_id=usermodels.UserInfo.objects.get(username=UserName)
+
+            UserName = News_content['username']
+            User_id = usermodels.UserInfo.objects.get(username=UserName)
 
             News_id = models.News.objects.aggregate(Max('news_id'))[
                 'news_id__max']
@@ -101,7 +101,7 @@ def publish_news(request):
 
 
 @decorators.login_required
-def publish_comment(request,newsid):
+def publish_comment(request, newsid):
     # 获取内容
     try:
         Comm = json.loads(request.body)
@@ -111,8 +111,6 @@ def publish_comment(request,newsid):
         Cmt_content = Comm['comment']
     except usermodels.UserInfo.DoesNotExist:
         return HttpResponse("发布失败")  # 发布失败
-
-    
 
     # 检查评论违禁词
     for word in banned_word_list:
@@ -151,25 +149,26 @@ def publish_comment(request,newsid):
 # 查看新闻
 
 
-def view_news(request,newsid):
+def view_news(request, newsid):
     # 获取新闻id和评论id
     cmtlist = []
     try:
         cmt_query = models.NewsComments.objects.filter(news_id=newsid)
-        news_cont=models.News.objects.get(news_id=newsid)
+        news_cont = models.News.objects.get(news_id=newsid)
     except:
         HttpResponse("不存在该新闻")
 
     for cmt in cmt_query:
         cmtid = cmt.cmt_id.cmt_id  # 找到评论id
-        cmts = models.Comment.objects.filter(cmt_id=cmtid)  # 获取评论内容
-        for cmtinfo in cmts:  # 评论加入表中（其实只有一个元素，不需要循环
-            if cmtinfo.is_reliable == 3:
-                cmt_item = {}
-                cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
-                cmt_item['cmt_content'] = cmtinfo.cmt_content
-                cmtlist.append(cmt_item)
-    newsPage={'cmts':cmtlist,'news':news_cont.news_url,'title':news_cont.news_title}
+        cmt_info = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
+        if cmtinfo.is_reliable == 3:
+            cmt_item = {}
+            cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
+            cmt_item['cmt_content'] = cmtinfo.cmt_content
+            cmtlist.append(cmt_item)
+
+    newsPage = {'cmts': cmtlist, 'news': news_cont.news_url,
+                'title': news_cont.news_title}
     content = json.dumps(newsPage)
     return HttpResponse(content, content_type="application/json")
 
@@ -210,7 +209,7 @@ def report(request):
     #     user_info = models.UserInfo.objects.get(
     #         username=request.user.username)
     #     user_group = Group.objects.get(user=user_info)
-        # User_id = request.session.get('_auth_user_id')
+    # User_id = request.session.get('_auth_user_id')
     # except models.UserInfo.DoesNotExist:
     #     return HttpResponse("请登录")  # 游客
 
@@ -220,7 +219,7 @@ def report(request):
     User_id = usermodels.UserInfo.objects.get(username=UserName)
     Cmt_id = Cmt_info['cmt_id']
     report_reason = Cmt_info['reason']
-    
+
     Report_time = time.strftime(
         "%Y-%m-%d %H:%M:%S", time.localtime())
 
@@ -242,7 +241,7 @@ def report(request):
 
 
 def news_list(request, ori_type):
-    val=1
+    val = 1
     if(ori_type == 'process'):  # 后端分新闻类型返回
         val = 1
     if(ori_type == 'knowledges'):
@@ -251,17 +250,17 @@ def news_list(request, ori_type):
         val = 3
     Allnews = models.NewsColumn.objects.filter(cl_id=val)
     newsinfo_list = []
-    
+
     for news in Allnews:
         news_item = {}
-        
+
         news_item['num'] = news.news_id.news_id
 
         news_item['title'] = news.news_id.news_title
         news_item['text'] = news.news_id.news_url
 
         newsinfo_list.append(news_item)
-    news={'news':newsinfo_list}
+    news = {'news': newsinfo_list}
     content = json.dumps(news)
     return HttpResponse(content, content_type="application/json")
 
@@ -330,3 +329,43 @@ def getImg(request):
         return HttpResponse(path)  # 返回图片路径
     except:
         return HttpResponse("获取图片失败")
+
+
+def del_news(request):
+    News = json.loads(request.body)
+    News_id = News['num']
+
+    # 删除新闻评论
+    items_newscomm = models.NewsComments.objects.filter(news_id=News_id)
+    for item in items_newscomm:
+
+        commID = item.cmt_id.cmt_id
+        comm_obj = models.Comments.objects.get(cmt_id=commID)
+        comm_obj.delete()
+    # 删除新闻
+    news_obj = models.News.objects.get(news_id=News_id)
+    news_obj.delete()
+
+
+def get_user_comm(request):
+    User = json.loads(request.body)
+    Username = User['username']
+
+    Useritem = models.UserInfo.objects.get(username=Username)
+    UserID = Useritem.user_id
+
+    Comms = models.PublishComments.objects.filter(user_id=UserID)
+
+    cmtlist = []
+
+    for cmt in Comms:
+        cmtid = cmt.cmt_id.cmt_id  # 找到评论id
+        cmt_info = models.Comment.objects.get(cmt_id=cmtid)  # 获取评论内容
+        if cmt_info.is_reliable == 3:
+            cmt_item = {}
+            cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
+            cmt_item['cmt_content'] = cmtinfo.cmt_content
+            cmtlist.append(cmt_item)
+
+    content = json.dumps(cmtlist)
+    return HttpResponse(content, content_type="application/json")
