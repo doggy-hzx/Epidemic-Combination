@@ -18,7 +18,7 @@ class NewsMain extends Component {
         super(props);
         this.state = {
             data_1:[
-
+                {title:'title',num:1}
             ],
             data_2:[
 

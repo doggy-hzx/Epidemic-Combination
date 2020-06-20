@@ -23,9 +23,9 @@ class News extends Component {
     }
 
     componentDidMount=()=>{
-        fetch('https://127.0.0.1:8000/NewsList/'+this.props.location.state.params+'/',{
+        fetch('https://127.0.0.1:8000/NewsList/',{
             method:"post",
-            body:JSON.stringify(this.props.location.state.num),
+            body:JSON.stringify(this.props.location.state),
             mode:"cors",
             credentials:"include",
             headers:{
@@ -87,6 +87,7 @@ class News extends Component {
                     <TextArea rows={4} placeholder = "请输入评论" id = "cinput" onChange = {(e)=>{this.loadComment(e)}}>
                     </TextArea>
                     <Button type = "primary" onClick = {this.addComment}>提交</Button>
+                    <Button type = "primary" onClick = {this.update}>提</Button>
                 </div>
             </div>
         );
