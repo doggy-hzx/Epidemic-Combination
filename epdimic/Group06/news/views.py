@@ -110,6 +110,7 @@ def publish_comment(request):
         User_obj = usermodels.UserInfo.objects.get(username=UserName)
         Cmt_content = Comm['com']
         newsid=Comm['num']
+        
     except usermodels.UserInfo.DoesNotExist:
         return HttpResponse("发布失败")  # 发布失败
 
