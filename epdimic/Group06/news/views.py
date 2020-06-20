@@ -44,7 +44,7 @@ def publish_news(request):
             else:
                 News_id = News_id+1
             News_title = News_content['news_title']
-            News_url = News_content['news_url']
+            News_url = News_content['news_content']
             News_gen_time = time.strftime(
                 "%Y-%m-%d %H:%M:%S", time.localtime())
             Col_id = News_content['cl_id']
@@ -102,7 +102,7 @@ def publish_news(request):
 
 @decorators.login_required
 def publish_comment(request,newsid):
-    # 检查权限
+    # 获取内容
     try:
         Comm = json.loads(request.body)
 
@@ -110,9 +110,8 @@ def publish_comment(request,newsid):
         User_id = usermodels.UserInfo.objects.get(username=UserName)
         Cmt_content = Comm['comment']
     except usermodels.UserInfo.DoesNotExist:
-        return HttpResponse("请登录")  # 游客
+        return HttpResponse("发布失败")  # 发布失败
 
-    # 获取评论数据
     
 
     # 检查评论违禁词
@@ -169,7 +168,6 @@ def view_news(request,newsid):
                 cmt_item = {}
                 cmt_item['cmt_gen_time'] = str(cmtinfo.cmt_gen_time)
                 cmt_item['cmt_content'] = cmtinfo.cmt_content
-                cmt_item['like_num'] = cmtinfo.like_num
                 cmtlist.append(cmt_item)
     newsPage={'cmts':cmtlist,'news':news_cont.news_url,'title':news_cont.news_title}
     content = json.dumps(newsPage)
@@ -257,12 +255,10 @@ def news_list(request, ori_type):
     for news in Allnews:
         news_item = {}
         
-        news_item['news_id'] = news.news_id.news_id
+        news_item['num'] = news.news_id.news_id
 
-        news_item['news_title'] = news.news_id.news_title
-        news_item['news_url'] = news.news_id.news_url
-        news_item['view_num'] = news.news_id.view_num
-        news_item['news_gen_time'] = str(news.news_id.news_gen_time)
+        news_item['title'] = news.news_id.news_title
+        news_item['text'] = news.news_id.news_url
 
         newsinfo_list.append(news_item)
     print(Allnews)
@@ -312,7 +308,7 @@ def likes(request):
     User = json.loads(request.body)
 
     UserName = User['username']
-    User_id = UserInfo.objects.get(username=UserName)
+    User_id = usermodels.UserInfo.objects.get(username=UserName)
 
     Report_info = models.JudgeComment.objects.create(
         judge_cmt_id=Judge_cmt_id, user_id=User_id, cmt_id=Cmt_id, report_time=Report_time, report_type=0)

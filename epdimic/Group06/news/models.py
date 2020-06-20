@@ -9,7 +9,7 @@ from django.contrib.auth.models import AbstractUser
 class News(models.Model):
     news_id = models.BigAutoField(primary_key=True)
     news_title = models.CharField(max_length=64)    # 新闻标题
-    news_url = models.URLField()    # 新闻链接
+    news_url = models.TextField(max_length=8192, blank=False)    # 新闻链接
     news_gen_time = models.DateTimeField(auto_now_add=True)
     view_num = models.BigIntegerField(default=0)
     share_num = models.BigIntegerField(default=0)

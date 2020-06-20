@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('cl_name', models.CharField(max_length=64)),
                 ('cl_description', models.TextField(blank=True, max_length=512)),
                 ('cl_gen_time', models.DateTimeField(auto_now_add=True)),
-                ('parent_cl_id', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='News.Column')),
+                ('parent_cl_id', models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='news.Column')),
             ],
         ),
         migrations.CreateModel(
@@ -53,11 +53,11 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='News',
+            name='news',
             fields=[
                 ('news_id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('news_title', models.CharField(max_length=64)),
-                ('news_url', models.URLField()),
+                ('news_url', models.CharField(max_length=8192)),
                 ('news_gen_time', models.DateTimeField(auto_now_add=True)),
                 ('view_num', models.BigIntegerField(default=0)),
                 ('share_num', models.BigIntegerField(default=0)),
@@ -70,7 +70,8 @@ class Migration(migrations.Migration):
                 ('share_id', models.BigAutoField(primary_key=True, serialize=False)),
                 ('share_text', models.TextField(blank=True, max_length=512)),
                 ('share_time', models.DateTimeField(auto_now_add=True)),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
                 ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -78,7 +79,8 @@ class Migration(migrations.Migration):
             name='PublishNews',
             fields=[
                 ('pub_news_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
                 ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -86,7 +88,8 @@ class Migration(migrations.Migration):
             name='PublishComments',
             fields=[
                 ('pub_cmt_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('cmt_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Comment')),
+                ('cmt_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Comment')),
                 ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
@@ -94,32 +97,40 @@ class Migration(migrations.Migration):
             name='NewsImages',
             fields=[
                 ('news_files_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('img_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Images')),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('img_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Images')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
             ],
         ),
         migrations.CreateModel(
             name='NewsFiles',
             fields=[
                 ('news_files_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('files_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Files')),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('files_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Files')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
             ],
         ),
         migrations.CreateModel(
             name='NewsComments',
             fields=[
                 ('news_cmt_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('cmt_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Comment')),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('cmt_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Comment')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
             ],
         ),
         migrations.CreateModel(
             name='NewsColumn',
             fields=[
                 ('news_cl_id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('cl_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Column')),
-                ('news_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.News')),
+                ('cl_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Column')),
+                ('news_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.News')),
             ],
         ),
         migrations.CreateModel(
@@ -129,7 +140,8 @@ class Migration(migrations.Migration):
                 ('report_text', models.TextField(default=None, max_length=1024, null=True)),
                 ('report_time', models.DateTimeField(auto_now_add=True)),
                 ('report_type', models.IntegerField(choices=[(0, '点赞'), (1, '举报')], default=0)),
-                ('cmt_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='News.Comment')),
+                ('cmt_id', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='news.Comment')),
                 ('user_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
             ],
         ),
