@@ -30,6 +30,7 @@ class NewsOperator extends Component {
             data_3:[
             ],
             result:"",
+            change:"",
         };
     }
 
@@ -134,11 +135,13 @@ class NewsOperator extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
+                    
                 },
                 (error)=>{
                     console.log(error);
                 })
 
+        alert("删除成功！");
 
         fetch('http://127.0.0.1:8000/news/NewsList/process',{
             method:"get",
@@ -195,6 +198,9 @@ class NewsOperator extends Component {
             (error)=>{
                 console.log(error);
             })
+
+        
+            
     }
 
     loadBlock=(e)=>{
@@ -216,6 +222,7 @@ class NewsOperator extends Component {
             })
                 .then(res => res.json())
                 .then((result)=>{
+                    
                 },
                 (error)=>{
                     console.log(error);
@@ -255,6 +262,9 @@ class NewsOperator extends Component {
                     console.log(error);
                 })
         }
+
+        alert("添加成功！");
+
 
         fetch('http://127.0.0.1:8000/news/NewsList/process',{
             method:"get",

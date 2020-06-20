@@ -99,6 +99,8 @@ class News extends Component {
             (error)=>{
                 console.log(error);
             })
+
+        this.forceUpdate();
     }
 
     render() {
