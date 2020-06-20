@@ -25,7 +25,7 @@ def ParseVerifyEmailURL(token):
     :param token: 用户信息签名后的结果
     :return: user, None
     """
-    serializer = Serializer(settings.SECRET_KEY, expires_in=3600)
+    serializer = Serializer(settings.SECRET_KEY, expires_in=30)
     try:
         data = serializer.loads(token)
     except BadData:

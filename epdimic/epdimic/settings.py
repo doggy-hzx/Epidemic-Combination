@@ -37,18 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 
     'Group06.users',
     'Group06.news',
+
     'Group07',
-    'corsheaders',
+    'Group09',
+    'Group08',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -56,6 +60,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'epdimic.urls'
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+
+EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 465
+EMAIL_HOST_USER = '1156609896@qq.com'  # 在这里填入您的QQ邮箱账号
+EMAIL_HOST_PASSWORD = 'erzfezlybfxsgibe'  # 请在这里填上您自己邮箱的授权码
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_USE_SSL = True
 
 TEMPLATES = [
     {
@@ -109,6 +122,8 @@ DATABASES = {
 
 DATABASES_APPS_MAPPING = {
     'Group7': 'db1',
+    'Group9': 'db1',
+    'Group8': 'db1',
     # 'users': 'db2',
 }
 
@@ -132,6 +147,71 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+#cors
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_WHITELIST = (
+
+    'http://*',
+
+)
+
+CORS_ALLOW_METHODS = (
+
+    'DELETE',
+
+    'GET',
+
+    'OPTIONS',
+
+    'PATCH',
+
+    'POST',
+
+    'PUT',
+
+    'VIEW',
+
+)
+
+
+CORS_ALLOW_HEADERS = (
+
+    'accept',
+
+    'XMLHttpRequest',
+
+    'X_FILENAME',
+
+    'accept-encoding',
+
+    'authorization',
+
+    'content-type',
+
+    'dnt',
+
+    'origin',
+
+    'user-agent',
+
+    'x-csrftoken',
+
+    'x-requested-with',
+
+    'Pragma',
+
+    'X-Custom-Header',
+
+    'sessionid'
+
+)
+
+
 
 
 # Internationalization
@@ -160,18 +240,9 @@ STATICFILES_DIRS = (
 # 用户表
 AUTH_USER_MODEL = 'users.UserInfo'
 
-# 邮件配置
-EMAIL_USE_SSL = True
 
-EMAIL_HOST = 'smtp.163.com'  # 如果是 163 改成 smtp.163.com
 
-EMAIL_PORT = 465
-
-EMAIL_HOST_USER = 'se_proj_reg@163.com'  # 帐号
-
-EMAIL_HOST_PASSWORD = 'CMOJHASAPVSICYHZ'  # 授权码（****）
-# 默认邮件
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# G6 邮箱验证的前端链接
 EMAIL_VERIFY_URL = 'http://127.0.0.1:3000/'
 
 
@@ -180,34 +251,3 @@ DEFAULT_SUPERUSER_INFO = {
     'real_name': 'superUser',
     'citizen_id': '500000000000000000'
 }
-
-CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = ()
-
-CORS_ALLOW_METHODS = (
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-    'VIEW',
-)
-
-CORS_ALLOW_HEADERS = (
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-)
-# 跨域请求时，是否运行携带cookie，默认为False
-CORS_ALLOW_CREDENTIALS = True
-# 允许所有主机执行跨站点请求，默认为False
-# 如果没设置该参数，则必须设置白名单，运行部分白名单的主机才能执行跨站点请求
-CORS_ORIGIN_ALLOW_ALL = True

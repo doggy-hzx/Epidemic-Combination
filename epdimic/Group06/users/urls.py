@@ -45,8 +45,12 @@ urlpatterns = [
     path('auth/authorization/', views.OnUserAuthorizationRequest),
     # GET: 无权访问的时候 转到无权访问页面
     path('auth/forbidden/', views.OnPermissionDenied),
+    # 测试
+    path('auth/test/', views.AuthTest),
     # POST: 禁用某个用户
-    path('auth/deactivate/', views.OnPermissionDenied),
+    path('auth/deactivate/', views.OnDeactivateUserRequest),
+    # POST 取消某个用户的分组
+    path('auth/remove_group/', views.OnDeactivateUserRequest),
     path('createSuperUser', views.CreateSuperUser)
 
 ]

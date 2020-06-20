@@ -44,9 +44,15 @@ def user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_FIE
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             user = GetUserFromRequestSession(request)
+            if user.is_anonymous:
+                print(" 用户不存在")
+            else:
+                print(user.username, user.groups.values_list("name", flat=True), user.email)
             if test_func(user):
                 return view_func(request, *args, **kwargs)
             path = request.build_absolute_uri()
+            if login_url is None:
+                login_url='../../login/'
             resolved_login_url = resolve_url(login_url or settings.LOGIN_URL)
             # If the login url is the same scheme and net location then just
             # use the path as the "next" url.
@@ -73,7 +79,7 @@ def group_required(*group_names):
                 return True
         return False
 
-    return user_passes_test(in_groups, '../forbidden/')
+    return user_passes_test(in_groups, login_url='../forbidden/')
 
 
 def login_required(function=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url=None):

@@ -153,7 +153,7 @@ class NewsOperator extends Component {
     Update=()=>{
         if(block === "防疫进展"){
             update.group = "proccess";
-            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -175,7 +175,7 @@ class NewsOperator extends Component {
                 })
         }else if(block === "防疫知识"){
             update.group = "knowledge";
-            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
@@ -197,7 +197,7 @@ class NewsOperator extends Component {
                 })
         }else if(block === "最新情况"){
             update.group = "newest";
-            fetch('https://127.0.0.1:8000/NewsList/PublishNews',{
+            fetch('http://127.0.0.1:8000/NewsList/PublishNews',{
                 method:"post",
                 mode:"cors",
                 credentials:"include",
