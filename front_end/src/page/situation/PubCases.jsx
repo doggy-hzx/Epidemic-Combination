@@ -188,8 +188,8 @@ class PubCases extends React.Component {
 		let that = this;
 
 		$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token}}' }});
-		let url_1 = "/ESS/background/Cases?province=" + UrlProp;
-		let url_2 = "/ESS/background/Cases?bydate=ture&province=" + UrlProp;
+		let url_1 = "http://127.0.0.1:8000/ESS/background/Cases?province=" + UrlProp;
+		let url_2 = "http://127.0.0.1:8000/ESS/background/Cases?bydate=ture&province=" + UrlProp;
 		console.log(url_1)
 		// 以下获取今日数据并处理
 		$.getJSON(url_2, function(json){

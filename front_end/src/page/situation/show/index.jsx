@@ -156,8 +156,8 @@ class Situation extends React.Component {
 		let that = this;
 
 		$.ajaxSetup({data: {csrfmiddlewaretoken: '{{ csrf_token}}' }});
-		let url_1 = "/ESS/situation?getmap=true"
-		let url_2 = "/ESS/situation?bydate=ture&getmap=true"
+		let url_1 = "http://127.0.0.1:8000/ESS/situation?getmap=true"
+		let url_2 = "http://127.0.0.1:8000/ESS/situation?bydate=ture&getmap=true"
 		$.getJSON(url_1, function(json){
 			
 			console.log(json)

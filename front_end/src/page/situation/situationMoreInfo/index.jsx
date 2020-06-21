@@ -97,7 +97,7 @@ class SituationMoreInfo extends React.Component {
 
 	componentWillMount() {
 		// TODO: url check
-		var url = "/ESS/situation/situationMoreInfo?bydate=true&province=" + "BJ"
+		var url = "http://127.0.0.1:8000/ESS/situation/situationMoreInfo?bydate=true&province=" + "BJ"
 		this.getProvinceList();
 		this.getStatistic();
 		this.getRearEnd(url);
